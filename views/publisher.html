@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+{% block content %}
+<form id = 'form' action = '/publisher' method = 'post'>
+    <p>출판사 이름*<br>(특수문자 입력 불가)</p>
+    <input type = 'text' name = 'publisher_name' id="publisher_name" minlength="1" maxlength="16" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)">
+    <br><br>
+    <p>출판사 주소<br>(공백없이 ,로 구별)</p>
+    <input type = 'text' name = 'publisher_address' id="publisher_address" minlength="1" maxlength="50" onkeyup="characterCheck2(this)" onkeydown="characterCheck2(this)">
+    <br><br>
+    <p>출판사 연락처<br>(전화번호 - 제외하고 11자 이내)</p>
+    <input type="text" name="publisher_contact" id="publisher_contact" minlength="9" maxlength="11" onkeyup="numCheck(this); characterCheck(this)" onkeydown="numCheck(this); characterCheck(this)">
+    <br><br>
+    <button type = "submit">등록</button>
+</form>
+{% endblock %}
+
+{% block script %}
+<script>
+    window.onload = () => {
+        if (new URL(location.href).searchParams.get('error')) {
+            alert('이미 존재하는 출판사입니다.');
+        }
+        else if(new URL(location.href).searchParams.get('inputError')) {
+            alert('내용이 제대로 입력되지 않았습니다.');
+        }
+    };
+
+    const characterCheck = (obj) => {
+        let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi; 
+        if( regExp.test(obj.value) ){
+          alert("특수문자는 입력하실수 없습니다.");
+          obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움
+          }
+        };
+    
+    const characterCheck2 = (obj) => {
+        let regExp = /[ \{\}\[\]\/?.;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi; 
+        if( regExp.test(obj.value) ){
+          alert("특수문자는 입력하실수 없습니다.");
+          obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움
+          }
+        };
+
+    const numCheck = (obj) => {
+        if(isNaN(obj.value)) {
+            alert("숫자만 입력 가능합니다.");
+            obj.value = obj.value.substring( 0 , obj.value.length - 1 );
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="search">
+      <div class="book">
+        <form id="book-form" action="/book" method="post">
+          <label>검색</label>
+          <input type="text" name="book_name" placeholder="책 이름" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)">
+          <button class="btn">검색</button>
+        </form><br><br>
+        {% for book in books %}
+        <div class="book">
+          {% if book.img %}
+            <div class="book-img"><img src="{{book.img}}" alt="표지"></div><br>
+          {% endif %}
+          <label for="ISBN">ISBN</label>
+          <div class="ISBN">{{book.ISBN}}</div><br>
+          <label for="book-name">책 이름</label>
+          <div class="book-name">{{book.book_name}}</div><br>
+          <label for="publisher">출판사</label>
+          <div class="publisher">{{book.publisher}}</div><br>
+          <label for="publish-date">출판일</label>
+          <div class="publish-date">{{book.publish_date}}</div>
+          <br>
+          <form action="/book/page" method="post">
+            <input type="text" name="ISBN" id="ISBN" value="{{book.ISBN}}" hidden>
+            <button type="submit" class="btn">상세페이지 보기</button>
+          </form>
+          <br><br>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+<script>
+  const characterCheck = (obj) => {
+      let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi; 
+      if( regExp.test(obj.value) ){
+        alert("특수문자는 입력하실수 없습니다.");
+        obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움
+        }
+      };
+</script>
+{% endblock %}

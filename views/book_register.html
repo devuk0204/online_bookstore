@@ -1,0 +1,88 @@
+{% extends 'layout.html' %}
+{% block content %}
+<form id = 'form' action = '/book_register' method = 'post' enctype = 'multipart/form-data'>
+    <div class="img-preview">
+        <img id="img-preview" src="" style="display: none;" width="250" alt="미리보기">
+        <input id="img-url" type="hidden" name="url">
+      </div>
+    <div>
+        <label id="img-label" for="img">사진 업로드</label>
+        <input id="img" type="file" accept="image/*">
+    </div>
+    <br><br>
+    <p>ISBN <br>(13자리 형식)</p>
+    <input type = 'text' name = 'ISBN' id="ISBN" placeholder="ISBN" minlength="13" maxlength="13" onkeyup="numCheck(this); characterCheck(this)" onkeydown="numCheck(this); characterCheck(this)">
+    <br><br>
+    <p>도서 이름<br>(특수문자 입력 불가)</p>
+    <input type = 'text' name = 'book_name' id="book_name" placeholder="도서 이름" minlength="1" maxlength="50" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)">
+    <br><br>
+    <p>도서 재고<br>(0개 이상)</p>
+    <input type="number" name="book_stock" id="book_stock" value="0" min="0" onkeyup="numCheck(this); characterCheck(this)" onkeydown="numCheck(this); characterCheck(this)">
+    <br><br>
+    <p>도서 정가<br>(1원 이상)</p>
+    <input type="number" name="list_price" id="list_price" value="1" min="1" onkeyup="numCheck(this); characterCheck(this)" onkeydown="numCheck(this); characterCheck(this)">
+    <br><br>
+    <p>분류</p>
+    <select name="category" id="category">
+        <option value = "novel">소설</option>
+        <option value = "specialized_books">전문도서</option>
+        <option value = "memoirs">수기</option>
+    </select>
+    <br><br>
+    <p>출판일</p>
+    <input type="date" name="publish_date" id="publish_date">
+    <br><br>
+    <p>글쓴이<br>(특수문자 입력 불가)</p>
+    <input type = 'text' name = 'book_writer' placeholder="글쓴이" minlength="1" maxlength="10" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)">
+    <br><br>
+    <p>출판사 이름(특수문자 입력 불가)</p>
+    <input type = 'text' name = 'publisher' placeholder="출판사" minlength="1" maxlength="16" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)">
+    <br><br>
+    <button type = "submit">register</button>
+</form>
+{% endblock %}
+
+{% block script %}
+<script>
+    window.onload = () => {
+        if (new URL(location.href).searchParams.get('inputError')) {
+            alert('내용이 제대로 입력되지 않았습니다.');
+        }
+        else if(new URL(location.href).searchParams.get('error')) {
+            alert('이미 존재하는 책입니다.')
+        }
+    };
+
+    const characterCheck = (obj) => {
+        let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi; 
+        if( regExp.test(obj.value) ){
+          alert("특수문자는 입력하실수 없습니다.");
+          obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움
+          }
+        };
+
+    const numCheck = (obj) => {
+        if(isNaN(obj.value)) {
+            alert("숫자만 입력 가능합니다.");
+            obj.value = obj.value.substring( 0 , obj.value.length - 1 );
+        }
+    }
+
+    if (document.getElementById('img')) {
+        document.getElementById('img').addEventListener('change', function(e) {
+          const formData = new FormData();
+          console.log(this, this.files);
+          formData.append('img', this.files[0]);
+          axios.post('/book_register/img', formData)
+            .then((res) => {
+                document.getElementById('img-url').value = res.data.url;
+                document.getElementById('img-preview').src = res.data.url;
+                document.getElementById('img-preview').style.display = 'inline';
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        });
+      }
+</script>
+{% endblock %}
