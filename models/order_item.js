@@ -1,9 +1,16 @@
 const Sequelize = require('sequelize');
-const { Order } = require('.');
 
 module.exports = class Order_item extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
+    order_no: {
+      type: Sequelize.INTEGER,
+      primaryKey: true
+    },
+    ISBN: {
+      type: Sequelize.STRING(13),
+      primaryKey: true
+    },
       quantity: {
         type: Sequelize.INTEGER,
         allowNull: false
@@ -25,24 +32,24 @@ module.exports = class Order_item extends Sequelize.Model {
   }
 
   static associate(db) {
-    db.Order.belongsToMany(db.Book, {
-      through: Order_item,
-      foreignKey: {
-        allowNull: false,
-        name: 'order_no',
-        primaryKey: false,
-        onDelete: 'RESTRICT',
-        onUpdate: 'RESTRICT',
-    }, sourceKey: 'order_no'});
-
     db.Book.belongsToMany(db.Order, {
       through: Order_item,
       foreignKey: {
         allowNull: false,
         name: 'ISBN',
-        primaryKey: false,
+        primaryKey: true,
         onDelete: 'RESTRICT',
         onUpdate: 'RESTRICT',
     }, sourceKey: 'ISBN'});
+
+    db.Order.belongsToMany(db.Book, {
+      through: Order_item,
+      foreignKey: {
+        allowNull: false,
+        name: 'order_no',
+        primaryKey: true,
+        onDelete: 'RESTRICT',
+        onUpdate: 'RESTRICT',
+    }, sourceKey: 'order_no'});
   }
 };

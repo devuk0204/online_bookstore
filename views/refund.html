@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% block content %}
+<form id = 'form' action = '/my_page/refund/post' method = 'post'>
+    <input type="hidden" name="order_no" id="{{order_no}}" value="{{order_no}}">
+    <label for="refund-reason">환불사유</label>
+    <select name="refund_reason" id="refund-reason">
+        <option value="change_mind">단순변심</option>
+        <option value="faulty">불량</option>
+    </select>
+    <button type = "submit">환불요청</button>
+</form>
+{% endblock %}
+
+{% block script %}
+<script>
+</script>
+{% endblock %}

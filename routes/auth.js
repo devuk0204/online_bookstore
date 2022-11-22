@@ -2,7 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
-const { User, Shopping_basket }= require('../models');
+const { User, Shopping_basket, Point_log }= require('../models');
 
 const router = express.Router();
 
@@ -23,6 +23,13 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
         name,
         password: hash,
         phone_number,
+      });
+      await Point_log.create({
+        date: Date.now(),
+        total_point: 0,
+        description: '신규가입',
+        change_point: 0,
+        user_id: id
       });
       return res.redirect('/');
     } catch (error) {

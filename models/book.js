@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const Order_item = require('.')
 
 module.exports = class Book extends Sequelize.Model {
   static init(sequelize) {
@@ -51,5 +52,6 @@ module.exports = class Book extends Sequelize.Model {
   }
 
   static associate(db) {
+    
   }
 };

@@ -3,6 +3,11 @@ const Sequelize = require('sequelize');
 module.exports = class Order extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
+    order_no: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
     card_no: {
         type: Sequelize.STRING(16),
         allowNull: false
@@ -29,6 +34,31 @@ module.exports = class Order extends Sequelize.Model {
     },
     total_price: {
         type: Sequelize.INTEGER,
+        allowNull: false
+    },
+    refund_request_date: {
+        type: Sequelize.DATEONLY,
+        allowNull: true  
+    },
+    refund_reason: {
+        type: Sequelize.STRING(50),
+        allowNull: true
+    },
+    refund_expect_date: {
+        type: Sequelize.DATEONLY,
+        allowNull: true
+    },
+    refund_price: {
+        type: Sequelize.INTEGER,
+        allowNull: true
+    },
+    order_status: {
+        type: Sequelize.STRING(4),
+        defaultValue: '준비중'
+    },
+    use_point: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
         allowNull: false
     }
     }, {

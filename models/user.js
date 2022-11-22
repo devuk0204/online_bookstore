@@ -25,6 +25,16 @@ module.exports = class User extends Sequelize.Model {
         allowNull: false,
         defaultValue: 'local',
       },
+      point_stamp: {
+        type: Sequelize.INTEGER,
+        allowNull: 0,
+        defaultValue: 0
+      },
+      point: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+      },
     }, {
       sequelize,
       timestamps: false,
@@ -74,5 +84,14 @@ module.exports = class User extends Sequelize.Model {
         onUpdate: 'RESTRICT'
       }, sourceKey: 'id'
     });
+
+    db.User.hasMany(db.Point_log, {
+      foreignKey: {
+        name: 'user_id',
+        allowNull: false,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      }, sourcekey: 'id'
+    })
   }
 };

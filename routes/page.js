@@ -1,6 +1,6 @@
 const express = require('express');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
-const { Card, Shipping_address, Shopping_basket, Basket_item, Book, Order, Order_item} = require('../models');
+const { Card, Shipping_address, Shopping_basket, Basket_item, Book, Order, Order_item, User} = require('../models');
 const { Op } = require('sequelize');
 
 const router = express.Router();
@@ -16,10 +16,13 @@ router.get('/my_page', isLoggedIn, async (req, res, next) => {
   try {
     const cards = await Card.findAll({ where: {user_id: id}});
     const addresses = await Shipping_address.findAll({ where: {user_id: id}});
+    const orders = await Order.findAll({ where: {user_id: id}})
+    console.log(orders);
     res.render('my_page', {
         title: '마이페이지',
         cards: cards,
-        addresses: addresses
+        addresses: addresses,
+        orders: orders
     });
 }catch(error) {
     console.error(error);
@@ -36,7 +39,8 @@ router.get('/basket', isLoggedIn, async (req, res, next) => {
     const items = await Basket_item.findAll({ where: {basket_no: basket.id}});
     const books = await Book.findAll({ where: {
       [Op.or]: {ISBN: items.ISBN}
-    }})
+    }});
+    const user = await User.findOne({where: {id: id}});
     console.log(books);
     res.render('basket', {
       cards: cards,
@@ -44,11 +48,11 @@ router.get('/basket', isLoggedIn, async (req, res, next) => {
       basket: basket,
       items: items,
       books: books,
+      user: user
     });
   } catch(error) {
     console.error(error);
     return res.send("<script>alert('아직 장바구니에 아무것도 넣지 않으셨습니다.'); history.back();</script>");
-    next(error);
   }
 });
 

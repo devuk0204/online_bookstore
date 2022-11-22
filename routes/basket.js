@@ -1,6 +1,6 @@
 const express = require('express');
 const { isLoggedIn } = require('./middlewares');
-const { Book, Basket_item, Shopping_basket, Order, Card, Shipping_address, Order_item } = require('../models');
+const { Book, Basket_item, Shopping_basket, Order, Card, Shipping_address, Order_item, Order_status, User, Point_log } = require('../models');
 const router = express.Router();
 
 router.get('/', isLoggedIn , async (req, res, next) => {
@@ -83,12 +83,22 @@ router.post('/delete', isLoggedIn, async (req, res, next) => {
 });
 
 router.post('/order', isLoggedIn, async (req, res, next) => {
-    const { basket_no, card_no, address_no } = req.body;
+    const { basket_no, card_no, address_no, use_point } = req.body;
     const id = req.user.id;
     if(!card_no && !address_no) {
         return res.send("<script>alert('마이페이지에서 카드정보와 주소정보를 먼저 입력해주세요.'); history.back();</script>");
     }
     else {
+        let user = await User.findOne({ where: {id: id}})
+        if(use_point > user.point){
+            return res.send("<script>alert('사용 가능 포인트를 넘겼습니다.'); history.back();</script>");
+        }
+        if(use_point % 1000 != 0){
+            return res.send("<script>alert('포인트는 천원 단위로만 사용 가능합니다.'); history.back();</script>");
+        }
+        if(use_point > 0 && user.point_stamp < 10) {
+            return res.send("<script>alert('포인트 스탬프가 10 이상일때 10개를 소모하여 포인트를 사용가능합니다.'); history.back();</script>");
+        }
         let total_price = 0;
         const card = await Card.findOne({
             where: {
@@ -102,6 +112,7 @@ router.post('/order', isLoggedIn, async (req, res, next) => {
             }
         });
         await Order.create({
+            id: 1,
             card_no: card.card_no,
             card_expiry_date: card.card_expiry_date,
             card_type: card.card_type,
@@ -109,7 +120,8 @@ router.post('/order', isLoggedIn, async (req, res, next) => {
             address1: address.address1,
             address2: address.address2,
             total_price: 0,
-            user_id: id
+            user_id: id,
+            use_point: use_point
         });
         const orders = await Order.findAll({
             where: {
@@ -122,7 +134,7 @@ router.post('/order', isLoggedIn, async (req, res, next) => {
                 basket_no: basket_no
             }
         });
-        console.log(items[0].quantity);
+        let total_quantity = 0;
         for(i = 0; i < items.length; i++  ) {
             const book = await Book.findOne({
                 where: {
@@ -130,19 +142,66 @@ router.post('/order', isLoggedIn, async (req, res, next) => {
                 }
             });
             total_price += book.list_price * items[i].quantity;
+            total_quantity += items[i].quantity;
             await Order_item.create({
-                order_no: order.id,
+                order_no: order.order_no,
                 ISBN: book.ISBN,
                 sell_price: book.list_price,
-                quantity: items[i].quantity
+                quantity: items[i].quantity,
+            });
+            await Book.update({
+                book_stock: book.book_stock - items[i].quantity
+            }, {
+                where: {
+                    ISBN: book.ISBN
+                }
             });
         };
+        let temp_point = (total_price - use_point) * 0.1
+        if(use_point > 0) {
+            await User.update({
+                point: user.point - use_point + temp_point,
+                point_stamp: user.point_stamp - 10 + total_quantity,
+            }, {where: {id: id}});
+            await Point_log.create({
+                description: '주문',
+                total_point: user.point - use_point,
+                date: Date.now(),
+                change_point: -use_point,
+                user_id: id
+            });
+        } else {
+            await User.update({
+                point: user.point - use_point + temp_point,
+                point_stamp: user.point_stamp + total_quantity,
+            }, {where: {id: id}});
+        }
+        
         await Order.update({
-            total_price: total_price,
+            total_price: total_price + 5000,
         }, {
             where: {
-                id: order.id
+                order_no: order.order_no
             }
+        });
+
+        if(use_point > 0) {
+            
+        }
+        
+
+        user = await User.findOne({ where: {id: id}})
+
+        await Point_log.create({
+            description: '주문',
+            total_point: user.point,
+            date: Date.now(),
+            change_point: temp_point,
+            user_id: id
+        });
+
+        await Shopping_basket.destroy({
+            where: {user_id: id}
         });
         return await res.redirect('/');
     };

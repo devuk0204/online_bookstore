@@ -3,10 +3,6 @@
 {% block content %}
   <div class="my_page">
     <div class="display">
-      <h2>아이디</h2>
-      <div>{{user.id}}</div>
-    </div>
-    <div class="display">
       <h2>이름</h2>
       <div>{{user.name}}</div>
     </div>
@@ -14,13 +10,51 @@
       <h2>전화번호</h2>
       <div>{{user.phone_number}}</div>
     </div><br><br>
+    <div class="display">
+      <h2>적립금</h2>
+      <div>{{user.point}}</div>
+    </div><br><br>
+    <div class="display">
+      <h2>적립금 스탬프</h2>
+      <div>{{user.point_stamp}}</div>
+    </div><br><br>
     <input id="my-id" type="hidden" value="{{user.id}}">
     <a href="/my_page/edit" class="btn">회원정보 변경</a>
     <a href="/my_page/card" class="btn">카드 등록</a>
     <a href="/my_page/address" class="btn">주소 등록</a>
-    <a href="my_page/delete" class="btn">회원 탈퇴</a>
+    <a href="/my_page/delete" class="btn">회원 탈퇴</a>
     <br><br>
   </div>
+  {% for order in orders %}
+    <div class="order">
+      <label>주문 정보</label><br><br>
+      <label for="order-createdAt">주문일자</label>
+      <div class="order-createdAt">{{order.createdAt}}</div><br>
+      <label for="order-status">주문 상태</label>
+      <div class="order-status">{{order.order_status}}</div>
+      <form action="/my_page/orders" method="post">
+        <input type="hidden" name="order_no" value="{{order.order_no}}">
+        <button type="submit" class="btn">상세보기</button>
+      </form>
+      {% if order.order_status == '준비중' %}
+      <form action="/my_page/order_cancel" method="post">
+        <input type="hidden" name="order_no" value="{{order.order_no}}">
+        <button type="submit" class="btn">주문 취소</button>
+      </form>
+      {% elif order.order_status == '취소' or order.order_status == '전체반품' %}
+      <form action="/my_page/order_delete" method="post">
+        <input type="hidden" name="order_no" value="{{order.order_no}}">
+        <button type="submit" class="btn">주문 삭제</button>
+      </form>
+      {% else %}
+      <form action="/my_page/refund" method="post">
+        <input type="hidden" name="order_no" value="{{order.order_no}}">
+        <button type="submit" class="btn">환불 신청</button>
+      </form>
+      {% endif %}
+      <br><br>
+    </div>
+  {% endfor %}
   {% for card in cards %}
     <div class="card">
       <label>카드 정보</label><br><br>

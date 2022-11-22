@@ -19,6 +19,10 @@
   {% endfor %}
   <div class = order>
     <form action="/basket/order" method="post">
+        <label for="point">현재 포인트 : {{user.point}}</label><br>
+        <label for="point-stamp">현재 포인트 스탬프 : {{user.point_stamp}} (포인트 스탬프가 10개 이상일때 10개를 소모하여 포인트 사용이 가능합니다.)</label><br>
+        <label for="point">포인트 사용(1000원 단위로만 사용 가능)</label><br>
+        <input type="number" name="use_point" min="0" value="0"><br>
         <input type="number" name="basket_no" id="basket_no" value="{{basket.id}}" hidden>
         <label for="card_no">카드번호 선택</label>
         <select name="card_no" id="card_no">
