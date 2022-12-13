@@ -32,8 +32,7 @@ module.exports = class Order_item extends Sequelize.Model {
   }
 
   static associate(db) {
-    db.Book.belongsToMany(db.Order, {
-      through: Order_item,
+    db.Order_item.belongsTo(db.Book, {
       foreignKey: {
         allowNull: false,
         name: 'ISBN',
@@ -42,8 +41,7 @@ module.exports = class Order_item extends Sequelize.Model {
         onUpdate: 'RESTRICT',
     }, sourceKey: 'ISBN'});
 
-    db.Order.belongsToMany(db.Book, {
-      through: Order_item,
+    db.Order_item.belongsTo(db.Order, {
       foreignKey: {
         allowNull: false,
         name: 'order_no',

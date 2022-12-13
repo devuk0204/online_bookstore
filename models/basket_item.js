@@ -21,8 +21,7 @@ module.exports = class Basket_item extends Sequelize.Model {
   }
 
   static associate(db) {
-    db.Book.belongsToMany(db.Shopping_basket, {
-      through: Basket_item,
+    db.Basket_item.belongsTo(db.Book, {
         foreignKey: {
             allowNull: false,
             name: 'ISBN',
@@ -32,8 +31,7 @@ module.exports = class Basket_item extends Sequelize.Model {
             unique: 'basket_item_unique'
         }, sourceKey: 'ISBN'});
 
-    db.Shopping_basket.belongsToMany(db.Book, {
-      through: Basket_item,
+    db.Basket_item.belongsTo(db.Shopping_basket, {
       foreignKey: {
           allowNull: false,
           name: 'basket_no',

@@ -23,6 +23,7 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
         name,
         password: hash,
         phone_number,
+        id_type: 1
       });
       await Point_log.create({
         date: Date.now(),
@@ -40,13 +41,13 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
 });
 
 router.post('/login', isNotLoggedIn, async (req, res, next) => {
-  passport.authenticate('local', (authError, user, info) => {
+  passport.authenticate('local', (authError, user) => {
     if (authError) {
       console.error(authError);
       return next(authError);
     }
     if (!user) {
-      return res.redirect(`/?loginError=${info.message}`);
+      return res.send("<script>alert('회원정보가 일치하지 않습니다.'); history.back()</script>")
     }
     return req.login(user, (loginError) => {
       if (loginError) {

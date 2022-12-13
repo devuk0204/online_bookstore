@@ -1,6 +1,10 @@
 {% extends 'layout.html' %}
 {% block content %}
 <form id = 'form' action = '/publisher' method = 'post'>
+    <p>출판사 계정 아이디*<br>(특수문자 입력 불가)</p>
+    <input type = 'text' name = 'publisher_id' id="publisher_id" minlength="1" maxlength="16" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)">
+    <p>출판사 계정 비밀번호*<br>(특수문자 입력 불가)</p>
+    <input type = 'text' name = 'publisher_pw' id="publisher_pw" minlength="1" maxlength="16" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)">
     <p>출판사 이름*<br>(특수문자 입력 불가)</p>
     <input type = 'text' name = 'publisher_name' id="publisher_name" minlength="1" maxlength="16" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)">
     <br><br>

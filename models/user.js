@@ -22,18 +22,22 @@ module.exports = class User extends Sequelize.Model {
       },
       provider: {
         type: Sequelize.STRING(10),
-        allowNull: false,
+        allowNull: true,
         defaultValue: 'local',
       },
       point_stamp: {
         type: Sequelize.INTEGER,
-        allowNull: 0,
+        allowNull: true,
         defaultValue: 0
       },
       point: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         defaultValue: 0
+      },
+      id_type: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
     }, {
       sequelize,

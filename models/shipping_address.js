@@ -7,7 +7,7 @@ module.exports = class Shipping_address extends Sequelize.Model {
         primaryKey: true,
         autoIncrement: true,
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       postal_code: {
         type: Sequelize.STRING(5),

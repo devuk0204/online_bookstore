@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/', isLoggedIn , async (req, res, next) => {
     const id = req.user.id;
-    try {
+    try {    
         const basket = await Shopping_basket.findOne({
             where: {
                 user_id: id
@@ -17,13 +17,13 @@ router.get('/', isLoggedIn , async (req, res, next) => {
                         basket_no: basket.basket_no
                 }
             });
-            return await res.render('basket', {
+            return res.render('basket', {
                 basket_no: basket.basket_no,
                 items: items
             });
         }
         else {
-            return await res.render('basket');
+            return res.render('basket');
         }
     } catch(error) {
         console.error(error);

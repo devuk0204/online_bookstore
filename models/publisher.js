@@ -4,9 +4,8 @@ module.exports = class Publisher extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
       publisher_name: {
-        primaryKey: true,
-        type: Sequelize.STRING(16),
-        allowNull: false
+        type: Sequelize.STRING(),
+        allowNull: false,
       },
       publisher_address: {
         type: Sequelize.STRING(50),

@@ -1,6 +1,6 @@
 const express = require('express');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
-const { Card, Shipping_address, Shopping_basket, Basket_item, Book, Order, Order_item, User} = require('../models');
+const { Card, Shipping_address, Shopping_basket, Basket_item, Book, Order, Order_item, User, Sequelize} = require('../models');
 const { Op } = require('sequelize');
 
 const router = express.Router();
@@ -36,18 +36,14 @@ router.get('/basket', isLoggedIn, async (req, res, next) => {
     const cards = await Card.findAll({ where: {user_id: id}});
     const addresses = await Shipping_address.findAll({ where: {user_id: id}});
     const basket = await Shopping_basket.findOne({ where: {user_id: id}});
-    const items = await Basket_item.findAll({ where: {basket_no: basket.id}});
-    const books = await Book.findAll({ where: {
-      [Op.or]: {ISBN: items.ISBN}
-    }});
+    const items = await Basket_item.findAll(
+      { where: {basket_no: basket.id}});
     const user = await User.findOne({where: {id: id}});
-    console.log(books);
     res.render('basket', {
       cards: cards,
       addresses: addresses,
       basket: basket,
       items: items,
-      books: books,
       user: user
     });
   } catch(error) {
@@ -58,6 +54,10 @@ router.get('/basket', isLoggedIn, async (req, res, next) => {
 
 router.get('/join', isNotLoggedIn, (req, res) => {
   res.render('join', { title: '회원가입' });
+});
+
+router.get('/login', isNotLoggedIn, (req, res) => {
+  res.render('login', { title: '로그인' });
 });
 
 router.get('/', (req, res) => {

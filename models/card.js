@@ -6,7 +6,7 @@ module.exports = class Card extends Sequelize.Model {
       card_no: {
         primaryKey: true,
         type: Sequelize.STRING(16),
-        allowNull: false
+        allowNull: false,
       },
       card_expiry_date: {
         type: Sequelize.DATEONLY,
