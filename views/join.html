@@ -14,6 +14,17 @@
         <input id="join-password" type="password" name="password" minlength="8" maxlength="25" onkeyup="characterCheck2(this)" onkeydown="characterCheck2(this)">
       </div>
       <div class="input-group">
+        <label for="join-birth-date">나이*<br></label>
+        <input type="text" name="birth_date" id="birth_date" onkeyup="numCheck(this); characterCheck(this)" onkeydown="numCheck(this); characterCheck(this)" >
+      </div>
+      <div class="option-group">
+        <label for="join-sex">성별*<br></label>
+        <select name="sex" id="sex">
+          <option value="male">남자</option>
+          <option value="female">여자</option>
+        </select>
+      </div>
+      <div class="input-group">
         <label for="join-phone_number">휴대전화번호<br>(- 제외하고 ex)01012345678)</label>
         <input type="text" name="phone_number" id="phone_number" onkeyup="numCheck(this); characterCheck(this)" onkeydown="numCheck(this); characterCheck(this)" minlength="10" maxlength="11">
       </div>

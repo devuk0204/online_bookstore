@@ -16,14 +16,17 @@ module.exports = class User extends Sequelize.Model {
         type: Sequelize.STRING(100),
         allowNull: true,
       },
+      sex: {
+        type: Sequelize.STRING(6),
+        allowNull: true,
+      },
+      age: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
       phone_number: {
         type: Sequelize.STRING(11),
         allowNull: true
-      },
-      provider: {
-        type: Sequelize.STRING(10),
-        allowNull: true,
-        defaultValue: 'local',
       },
       point_stamp: {
         type: Sequelize.INTEGER,
@@ -41,7 +44,9 @@ module.exports = class User extends Sequelize.Model {
       },
     }, {
       sequelize,
-      timestamps: false,
+      timestamps: true,
+      createdAt: true,
+      updatedAt: false,
       underscored: false,
       modelName: 'User',
       tableName: 'users',
@@ -96,6 +101,15 @@ module.exports = class User extends Sequelize.Model {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       }, sourcekey: 'id'
+    });
+
+    db.User.hasMany(db.Admin_post, {
+      foreignKey: {
+        name: 'admin_id',
+        allowNull: false,
+        onDelete: 'SETNULL',
+        onUpdate: 'SETNULL'
+      }, sourceKey: 'id'
     })
   }
 };

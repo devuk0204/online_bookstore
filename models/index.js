@@ -12,6 +12,11 @@ const Shopping_basket = require('./shopping_basket');
 const Basket_item = require('./basket_item');
 const Order_status = require('./order_status');
 const Point_log = require('./point_log');
+const Day_tally = require('./day_tally');
+const Month_tally = require('./month_tally');
+const Week_tally = require('./week_tally');
+const Sales_revenue = require('./sales_revenue');
+const Admin_post = require('./admin_post');
 
 const db = {};
 const sequelize = new Sequelize(
@@ -31,6 +36,11 @@ db.Shopping_basket = Shopping_basket;
 db.Basket_item = Basket_item;
 db.Order_status = Order_status;
 db.Point_log = Point_log;
+db.Day_tally = Day_tally;
+db.Week_tally = Week_tally;
+db.Month_tally = Month_tally;
+db.Sales_revenue = Sales_revenue;
+db.Admin_post = Admin_post;
 
 console.log(db);
 
@@ -46,6 +56,11 @@ Shopping_basket.init(sequelize);
 Basket_item.init(sequelize);
 Order_status.init(sequelize);
 Point_log.init(sequelize);
+Day_tally.init(sequelize);
+Week_tally.init(sequelize);
+Month_tally.init(sequelize);
+Sales_revenue.init(sequelize);
+Admin_post.init(sequelize);
 
 User.associate(db);
 Card.associate(db);
@@ -58,5 +73,10 @@ Shopping_basket.associate(db);
 Basket_item.associate(db);
 Order_status.associate(db);
 Point_log.associate(db);
+Day_tally.associate(db);
+Week_tally.associate(db);
+Month_tally.associate(db);
+Sales_revenue.associate(db);
+Admin_post.associate(db);
 
 module.exports = db;
