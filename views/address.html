@@ -1,47 +1,57 @@
 {% extends 'layout.html' %}
 {% block content %}
-<form id = 'form' action = '/my_page/address' method = 'post'>
-    <div class="input-group">
+<div class="grid-container">
+  <div class="grid-aside"> </div>
+  <div class="grid-content">
+    <form id='form' action='/my_page/address' method='post'>
+      <div class="input-group">
         <label for="join-id"></label>
-        <input id="join-id" type="text" name="id" value="{{user.id}}" hidden></div>
+        <input id="join-id" type="text" name="id" value="{{user.id}}" hidden>
+      </div>
       <div class="input-group">
         <label for="join-postal_code">우편번호*<br>(5자, 숫자만 사용 가능)</label>
-        <input id="join-postal_code" type="text" name="postal_code" onkeyup="characterCheck(this); numCheck(this)" onkeydown="characterCheck(this); numCheck(this)" minlength="5" maxlength="5"></div>
+        <input id="join-postal_code" type="text" name="postal_code" onkeyup="characterCheck(this); numCheck(this)"
+          onkeydown="characterCheck(this); numCheck(this)" minlength="5" maxlength="5">
+      </div>
       <div class="input-group">
         <label for="join-address1">기본주소*<br>(공백없이 ,로 구별)</label>
-        <input id="join-address1" type="text" name="address1" minlength="1" maxlength="40" onkeyup="characterCheck2(this)" onkeydown="characterCheck2(this)">
+        <input id="join-address1" type="text" name="address1" minlength="1" maxlength="40"
+          onkeyup="characterCheck2(this)" onkeydown="characterCheck2(this)">
       </div>
       <div class="input-group">
         <label for="join-address2">상세주소*<br>(공백없이 ,로 구별)</label>
-        <input id="join-address2" type="text" name="address2" minlength="1" maxlength="40" onkeyup="characterCheck2(this)" onkeydown="characterCheck2(this)">
+        <input id="join-address2" type="text" name="address2" minlength="1" maxlength="40"
+          onkeyup="characterCheck2(this)" onkeydown="characterCheck2(this)">
       </div>
-    <button type = "submit">register</button>
-</form>
+      <button type="submit">register</button>
+    </form>
+  </div>
+</div>
 {% endblock %}
 
 {% block script %}
 <script>
-    const characterCheck = (obj) => {
-        let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi; 
-        if( regExp.test(obj.value) ){
-          alert("특수문자는 입력하실수 없습니다.");
-          obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움
-          }
-        };
-    
-    const characterCheck2 = (obj) => {
-        let regExp = /[ \{\}\[\]\/?.;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi; 
-        if( regExp.test(obj.value) ){
-          alert("특수문자는 입력하실수 없습니다.");
-          obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움
-          }
-        };
-
-    const numCheck = (obj) => {
-        if(isNaN(obj.value)) {
-            alert("숫자만 입력 가능합니다.");
-            obj.value = obj.value.substring( 0 , obj.value.length - 1 );
-        }
+  const characterCheck = (obj) => {
+    let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
+    if (regExp.test(obj.value)) {
+      alert("특수문자는 입력하실수 없습니다.");
+      obj.value = obj.value.substring(0, obj.value.length - 1); // 입력한 특수문자 한자리 지움
     }
+  };
+
+  const characterCheck2 = (obj) => {
+    let regExp = /[ \{\}\[\]\/?.;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
+    if (regExp.test(obj.value)) {
+      alert("특수문자는 입력하실수 없습니다.");
+      obj.value = obj.value.substring(0, obj.value.length - 1); // 입력한 특수문자 한자리 지움
+    }
+  };
+
+  const numCheck = (obj) => {
+    if (isNaN(obj.value)) {
+      alert("숫자만 입력 가능합니다.");
+      obj.value = obj.value.substring(0, obj.value.length - 1);
+    }
+  }
 </script>
 {% endblock %}

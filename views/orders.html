@@ -2,32 +2,33 @@
 
 {% block content %}
 <div class="grid-container">
+  <div class="grid-aside"></div>
   <div class="grid-content">
-  <div class="my_page">
-    <div class="display">
-      <h2>주문내역</h2>
-      <label for="order-no">주문번호</label>
-      <div class="order-no">{{order.order_no}}</div><br>
-      <label class="order-date">주문일자</label>
-      <div class="order-date">{{order.createdAt}}</div><br>
-    </div>
-  {% for inf in orders %}
-    <div class="order">
-      <label>주문 정보</label><br><br>
-      <label for="order-ISBN">주문 도서</label>
-      <div class="order-createdAt">{{inf.ISBN}}</div><br>
-      <label for="order-quantity">수량</label>
-      <div class="order-quantity">{{inf.quantity}}권</div>
-      <!-- <label for="order-status">주문 상태</label>
+    <div class="my_page">
+      <div class="display">
+        <h2>주문내역</h2>
+        <label for="order-no">주문번호</label>
+        <div class="order-no">{{order.order_no}}</div><br>
+        <label class="order-date">주문일자</label>
+        <div class="order-date">{{order.createdAt}}</div><br>
+      </div>
+      {% for inf in orders %}
+      <div class="order">
+        <label>주문 정보</label><br><br>
+        <label for="order-ISBN">주문 도서</label>
+        <div class="order-createdAt">{{inf.ISBN}}</div><br>
+        <label for="order-quantity">수량</label>
+        <div class="order-quantity">{{inf.quantity}}권</div>
+        <!-- <label for="order-status">주문 상태</label>
       <div class="order-status">{{order.order_status}}</div> -->
-      <br><br>
+        <br><br>
+      </div>
+      {% endfor %}
     </div>
-  {% endfor %}
   </div>
-  </div>
-{% endblock %}
+  {% endblock %}
 
-{% block script %}
-<script>
-</script>
-{% endblock %}
+  {% block script %}
+  <script>
+  </script>
+  {% endblock %}

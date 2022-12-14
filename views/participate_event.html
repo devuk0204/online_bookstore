@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="grid-container">
+    <div class="cell-header">
+        <h1>{{title}}</h1>
+    </div>
+    <div class="cell-aside">
+    </div>
+
+    <div class="cell-content">
+        <h2>내가 참여한 이벤트</h2><br>
+        {% for event in participate_user %}
+        <h3>{{event_commercial.title}}</h3>
+        <p>{{participate_user.benefit_status}}</p>
+        <p>{{participate_user.participate_date}}</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
