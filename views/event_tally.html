@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="grid-container">
+        <div class="cell-header">
+          <h1>{{title}}</h1>
+        </div>
+        <div class="cell-aside">
+            <h2>출판사 페이지</h2>
+            <a href="">도서판매통계</a>
+            <h3><a href="">이벤트 / 광고통계</a></h3>
+            <a href="">이벤트 / 광고신청</a> <br><br>
+          </div>
+          
+          <div class="cell-content">
+            <h2>도서판매통계</h2>
+            <table>
+                <tr>
+                    <th>날짜</th>
+                    {% for day_tally in day_tallies %}
+                        <td>{{day_tally.tally_day}}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th>판매량</th>
+                    {% for volume in day_tallies %}
+                        <td>{{volume.sales}}</td>
+                    {% endfor %}
+                </tr>
+            </table> <br><br>
+          </div>
+        </div>
+      </div>
+{% endblock %}

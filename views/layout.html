@@ -9,17 +9,19 @@
 
 <body>
     <header>
-        <div class="logo">
-            <h3 class="main-logo">스퀘어북</h3>
-            <p class="semi-logo">Square Book</p>
-        </div>
+        <a href="/">
+            <div class="logo">
+                <h3 class="main-logo">스퀘어북</h3>
+                <p class="semi-logo">Square Book</p>
+            </div>
+        </a>
 
         <div class="search-box">
             <form action="/book" method="post">
                 <input name="book_name" class="bar" type="text" placeholder="검색어를 입력해주세요.">
                 <button class="search-btn">검색</button>
             </form>
-            
+
         </div>
 
         <div class="font-bundle-1">
@@ -35,9 +37,9 @@
         </div>
 
         <div class="font-bundle-2">
-            <a class="bestseller">베스트셀러</a>
+            <a class="bestseller" href="/best_seller">베스트셀러</a>
             <a class="book-category">도서 카테고리</a>
-            <a class="event">이벤트</a>
+            <a class="event" href="/event/list/notEnd">이벤트</a>
             <a class="notice">공지사항</a>
         </div>
     </header>
