@@ -14,7 +14,7 @@ router.post('/', async (req, res, next) => {
                 }
             }
         });
-        return res.render('main', {
+        return res.render('search', {
             books: books
         });
     } catch(error) {

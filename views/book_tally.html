@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="grid-container">
+        <div class="cell-header">
+          <h1>{{title}}</h1>
+        </div>
+        <div class="cell-aside">
+            <h2>출판사 페이지</h2>
+            <h3>도서판매통계</h3>
+            <a href="">이벤트 / 광고통계</a> <br><br>
+            <a href="">이벤트 / 광고신청</a> <br><br>
+          </div>
+          
+          <div class="cell-content">
+            <h2>도서판매통계</h2>
+            <table>
+                <tr>
+                    <th>날짜</th>
+                    {% for day_tally in day_tallies %}
+                        <td>{{day_tally.tally_day}}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th>판매량</th>
+                    {% for volume in day_tallies %}
+                        <td>{{volume.sales}}</td>
+                    {% endfor %}
+                </tr>
+            </table> <br><br>
+            
+            <table>
+                <tr>
+                    <th>주</th>
+                    {% for week_tally in week_tallies %}
+                        <td>{{month_tally.tally_month}}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th>판매량</th>
+                    {% for volume in week_tallies %}
+                        <td>{{volume.sales}}</td>
+                    {% endfor %}
+                </tr>
+            </table> <br><br>
+
+            <table>
+                <tr>
+                    <th>월</th>
+                    {% for month_tally in month_tallies %}
+                        <td>{{month_tally.tally_month}}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th>판매량</th>
+                    {% for volume in month_tallies %}
+                        <td>{{volume.sales}}</td>
+                    {% endfor %}
+                </tr>
+            </table> <br><br>
+                <tr>{{week_tally}}</tr>
+                <tr>{{month_tally}}</tr>
+          </div>
+        </div>
+      </div>
+{% endblock %}

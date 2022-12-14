@@ -17,7 +17,8 @@ router.get('/', isLoggedIn , async (req, res, next) => {
                         basket_no: basket.basket_no
                 }
             });
-            return res.render('basket', {
+            console.log(items[0]);
+            res.render('basket', {
                 basket_no: basket.basket_no,
                 items: items
             });
@@ -198,7 +199,7 @@ router.post('/order', isLoggedIn, async (req, res, next) => {
         await Shopping_basket.destroy({
             where: {user_id: id}
         });
-        return await res.redirect('/');
+        return res.redirect('/');
     };
     
 });

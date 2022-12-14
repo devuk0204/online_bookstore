@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="grid-container">
+        <div class="cell-header">
+          <h1>{{title}}</h1>
+        </div>
+        <div class="cell-aside">
+            <h2>출판사 페이지</h2>
+            <h3>도서판매통계</h3>
+            <a href="">이벤트 / 광고통계</a> <br><br>
+            <a href="">이벤트 / 광고신청</a> <br><br>
+          </div>
+          
+          <div class="cell-content">
+            <h2>도서판매통계</h2>
+            {% for book in books %}
+              <a href="/publisher/book/{{book.ISBN}}">{{book.book_name}}</a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+{% endblock %}

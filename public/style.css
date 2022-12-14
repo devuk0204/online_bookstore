@@ -1,0 +1,195 @@
+body {
+    width: 100%;
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    height: 190px;
+    left: 0px;
+    top: 0px;
+
+    font-family: 'Jeju Gothic', sans-serif;
+    font-style: normal;
+    text-align: center;
+
+    background: #000000;
+    color: #FFFFFF;
+}
+
+a {
+    text-decoration: none;
+}
+
+.grid-container {
+    display: grid;
+    grid-template: 200px / 200px 1fr;
+
+    position: fixed;
+    margin-top: 180px;
+    left: 0px;
+    height: auto;
+    width: 100%;
+
+    font-family: 'Jeju Gothic', sans-serif;
+    font-style: normal;
+
+    grid-template-areas:
+        'header header'
+        'aside content'
+}
+
+.cell-header {
+    grid-area: header;
+    
+    text-align: center;
+
+    color: #FFFFFF;
+    background: linear-gradient(84.95deg, #1A8EE1 3.62%, #7614A4 70.82%);
+}
+
+.cell-aside {
+    grid-area: aside;
+    margin-left: 5px;
+    background: #FFFFFF;
+}
+
+.cell-content {
+    grid-area: content;
+}
+
+.bar {
+    box-sizing: border-box;
+
+    position: fixed;
+    width: 739px;
+    height: 46px;
+    left: 398px;
+    top: 49px;
+
+    border: 1.5px solid #FFFFFF;
+    border-radius: 20px;
+}
+
+.main-logo {
+    position: fixed;
+    width: 92px;
+    height: 30px;
+    left: 26px;
+    top: 37px;
+
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 30px;
+}
+
+.semi-logo {
+    position: fixed;
+    width: 89px;
+    height: 18px;
+    left: 26px;
+    top: 67px;
+
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 18px;
+}
+
+.search-btn {
+    box-sizing: border-box;
+
+    position: fixed;
+    width: 46px;
+    height: 46px;
+    left: 1164px;
+    top: 49px;
+
+    border: 1.5px solid #FFFFFF;
+    border-radius: 20px;
+}
+
+.font-bundle-1 {
+    font-weight: 200;
+    font-size: 11px;
+    line-height: 13px;
+}
+
+.font-bundle-2 {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 18px;
+}
+
+.sign-up {
+    position: fixed;
+    width: 41px;
+    height: 13px;
+    left: 1525px;
+    top: 25px;
+}
+
+.login {
+    position: fixed;
+    width: 31px;
+    height: 13px;
+    left: 1599px;
+    top: 25px;
+}
+
+.customer-service {
+    position: fixed;
+    width: 41px;
+    height: 13px;
+    left: 1663px;
+    top: 25px;
+}
+
+.shopping-cart {
+    position: fixed;
+    width: 41px;
+    height: 13px;
+    left: 1720px;
+    top: 25px;
+}
+
+.bestseller {
+    position: fixed;
+    width: 73px;
+    height: 26px;
+    left: 26px;
+    top: 139px;
+}
+
+.book-category {
+    position: fixed;
+    width: 87px;
+    height: 18px;
+    left: 130px;
+    top: 141px;
+}
+
+.event {
+    position: fixed;
+    width: 42px;
+    height: 18px;
+    left: 262px;
+    top: 141px;
+}
+
+.notice {
+    position: fixed;
+    width: 56px;
+    height: 18px;
+    left: 340px;
+    top: 143px;
+}
+
+table {
+    width: 100%;
+    border: 1px solid #444444;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #444444;
+}

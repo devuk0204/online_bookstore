@@ -60,6 +60,23 @@ module.exports = class Book extends Sequelize.Model {
   }
 
   static associate(db) {
-    
+    db.Book.hasMany(db.Order_item, {
+      foreignKey: {
+        allowNull: false,
+        name: 'ISBN',
+        primaryKey: true,
+        onDelete: 'RESTRICT',
+        onUpdate: 'RESTRICT',
+    }, sourceKey: 'ISBN'});
+
+    db.Book.hasMany(db.Basket_item, {
+      foreignKey: {
+          allowNull: false,
+          name: 'ISBN',
+          primaryKey: false,
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
+          unique: 'basket_item_unique'
+      }, sourceKey: 'ISBN'});
   }
 };

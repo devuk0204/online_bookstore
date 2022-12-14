@@ -1,47 +1,49 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
     <title>{{title}}</title>
-    <meta name="viewport" content="width=device-width, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="/main.css">
-  </head>
-  <body>
-    <div class="container">
-      <div class="profile-wrap">
-        <div class="profile">
-          {% if user and user.id %}
-            <div class="user-name">{{'안녕하세요! ' + user.name + '님'}}</div>
-          <input id="my-id" type="hidden" value="{{user.id}}">
-          <a id="my-page" href="/my_page" class="btn">마이페이지</a>
-          <a id="logout" href="/auth/logout" class="btn">로그아웃</a>
-          <a href="/basket" class="btn">장바구니</a>
-        {% else %}
-        <a id="join" href="/join" class="btn">회원가입</a>
-        <a id="login" href="/login" class="btn">로그인</a>
-        {% endif %}
-        <br>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <h3 class="main-logo">스퀘어북</h3>
+            <p class="semi-logo">Square Book</p>
         </div>
-        <div class="book">
-          <form id="book-form" action="/book" method="post">
-            <label>검색</label>
-            <input type="text" name="book_name" placeholder="책 이름" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)">
-            <button class="btn">검색</button>
-          </form><br><br>
-        <a href="/" class="btn">Home</a>
-        {% if user.id_type == 1 %}
-        <a href="/book_register" class="btn">도서 등록</a>
-        <a href="/publisher/register" class="btn">출판사 등록</a>
-        {% endif %}
-      </div><br><br>
-      {% block content %}
-      {% endblock %}
-        <footer>
-          <h2>20181530 박찬욱</h2>
-        </footer>
-    </div>
-    {% block script %}
+
+        <div class="search-box">
+            <form action="/book" method="post">
+                <input name="book_name" class="bar" type="text" placeholder="검색어를 입력해주세요.">
+                <button class="search-btn">검색</button>
+            </form>
+            
+        </div>
+
+        <div class="font-bundle-1">
+            {% if user and user.id %}
+            <a id="my-page" href="/my_page" class="my-page">마이페이지</a>
+            <a id="logout" href="/auth/logout" class="login">로그아웃</a>
+            {% else %}
+            <a class="sign-up" href="/join">회원가입</a>
+            <a class="login" href="/login">로그인</a>
+            {% endif %}
+            <a class="customer-service">고객센터</a>
+            <a class="shopping-cart" href="/basket">장바구니</a>
+        </div>
+
+        <div class="font-bundle-2">
+            <a class="bestseller">베스트셀러</a>
+            <a class="book-category">도서 카테고리</a>
+            <a class="event">이벤트</a>
+            <a class="notice">공지사항</a>
+        </div>
+    </header>
+    <!-- nunjucks import -->
+    {% block content %}
     {% endblock %}
-  </body>
+</body>
+
 </html>

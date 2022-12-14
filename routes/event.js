@@ -57,8 +57,8 @@ router.get('/:reception_no', async (req, res, next) => {
     }
 });
 
-router.post('/', async(req, res, next) => {
+// router.post('/', async(req, res, next) => {
 
-});
+// });
 
 module.exports = router;

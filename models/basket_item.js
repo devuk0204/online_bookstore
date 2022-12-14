@@ -25,25 +25,6 @@ module.exports = class Basket_item extends Sequelize.Model {
   }
 
   static associate(db) {
-    db.Basket_item.belongsTo(db.Book, {
-        foreignKey: {
-            allowNull: false,
-            name: 'ISBN',
-            primaryKey: false,
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-            unique: 'basket_item_unique'
-        }, sourceKey: 'ISBN'});
-
-    db.Basket_item.belongsTo(db.Shopping_basket, {
-      foreignKey: {
-          allowNull: false,
-          name: 'basket_no',
-          primaryKey: false,
-          onDelete: 'CASCADE',
-          onUpdate: 'CASCADE',
-          unique: 'basket_item_unique'
-      }, sourceKey: 'id'});
   }
 
 };

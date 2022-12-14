@@ -40,22 +40,5 @@ module.exports = class Order_item extends Sequelize.Model {
   }
 
   static associate(db) {
-    db.Order_item.belongsTo(db.Book, {
-      foreignKey: {
-        allowNull: false,
-        name: 'ISBN',
-        primaryKey: true,
-        onDelete: 'RESTRICT',
-        onUpdate: 'RESTRICT',
-    }, sourceKey: 'ISBN'});
-
-    db.Order_item.belongsTo(db.Order, {
-      foreignKey: {
-        allowNull: false,
-        name: 'order_no',
-        primaryKey: true,
-        onDelete: 'RESTRICT',
-        onUpdate: 'RESTRICT',
-    }, sourceKey: 'order_no'});
   }
 };

@@ -16,5 +16,14 @@ module.exports = class Shopping_basket extends Sequelize.Model {
   }
 
   static associate(db) {
+    db.Shopping_basket.hasMany(db.Basket_item, {
+      foreignKey: {
+          allowNull: false,
+          name: 'basket_no',
+          primaryKey: false,
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
+          unique: 'basket_item_unique'
+      }, sourceKey: 'id'});
   } 
 };

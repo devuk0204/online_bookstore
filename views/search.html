@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="grid-container">
+    <div class="cell-content">
+        <div class="search">
+            {% for book in books %}
+            <div class="book">
+                <div class="book-img"><img src="{{book.img}}" alt="표지"></div><br>
+                <label for="book-name">책 이름</label>
+                <div class="book-name">{{book.book_name}}</div><br>
+                <label for="publisher">출판사</label>
+                <div class="publisher">{{book.publisher}}</div><br>
+                <br>
+                <a href="/book/page/{{book.ISBN}}/0">상세보기</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

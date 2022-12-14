@@ -1,73 +1,84 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-  <div class="timeline">
-    <form id="join-form" action="/auth/join" method="post">
-      <div class="input-group">
-        <label for="join-id">아이디*<br>(5 ~ 15자 이내, 특수문자 사용 불가)</label>
-        <input id="join-id" type="text" name="id" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)" minlength="5" maxlength="15"></div>
-      <div class="input-group">
-        <label for="join-name">이름*<br>(2 ~ 15자 이내, 특수문자 사용 불가)</label>
-        <input id="join-name" type="text" name="name" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)" minlength="2" maxlength="15"></div>
-      <div class="input-group">
-        <label for="join-password">비밀번호*<br>(8 ~ 25자 이내, 특수문자 @, #만 사용 가능)</label>
-        <input id="join-password" type="password" name="password" minlength="8" maxlength="25" onkeyup="characterCheck2(this)" onkeydown="characterCheck2(this)">
-      </div>
-      <div class="input-group">
-        <label for="join-birth-date">나이*<br></label>
-        <input type="text" name="birth_date" id="birth_date" onkeyup="numCheck(this); characterCheck(this)" onkeydown="numCheck(this); characterCheck(this)" >
-      </div>
-      <div class="option-group">
-        <label for="join-sex">성별*<br></label>
-        <select name="sex" id="sex">
-          <option value="male">남자</option>
-          <option value="female">여자</option>
-        </select>
-      </div>
-      <div class="input-group">
-        <label for="join-phone_number">휴대전화번호*<br>(- 제외하고 ex)01012345678)</label>
-        <input type="text" name="phone_number" id="phone_number" onkeyup="numCheck(this); characterCheck(this)" onkeydown="numCheck(this); characterCheck(this)" minlength="10" maxlength="11">
-      </div>
-      <div class="input-group">
-      </div>
-      <button id="join-btn" type="submit" class="btn">회원가입</button>
-    </form>
-    <label></label>
+<div class="grid-container">
+  <div class="cell-content">
+    <div class="timeline">
+      <form id="join-form" action="/auth/join" method="post">
+        <div class="input-group">
+          <label for="join-id">아이디*<br>(5 ~ 15자 이내, 특수문자 사용 불가)</label>
+          <input id="join-id" type="text" name="id" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)"
+            minlength="5" maxlength="15">
+        </div>
+        <div class="input-group">
+          <label for="join-name">이름*<br>(2 ~ 15자 이내, 특수문자 사용 불가)</label>
+          <input id="join-name" type="text" name="name" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)"
+            minlength="2" maxlength="15">
+        </div>
+        <div class="input-group">
+          <label for="join-password">비밀번호*<br>(8 ~ 25자 이내, 특수문자 @, #만 사용 가능)</label>
+          <input id="join-password" type="password" name="password" minlength="8" maxlength="25"
+            onkeyup="characterCheck2(this)" onkeydown="characterCheck2(this)">
+        </div>
+        <div class="input-group">
+          <label for="join-birth-date">나이*<br></label>
+          <input type="text" name="birth_date" id="birth_date" onkeyup="numCheck(this); characterCheck(this)"
+            onkeydown="numCheck(this); characterCheck(this)">
+        </div>
+        <div class="option-group">
+          <label for="join-sex">성별*<br></label>
+          <select name="sex" id="sex">
+            <option value="male">남자</option>
+            <option value="female">여자</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label for="join-phone_number">휴대전화번호*<br>(- 제외하고 ex)01012345678)</label>
+          <input type="text" name="phone_number" id="phone_number" onkeyup="numCheck(this); characterCheck(this)"
+            onkeydown="numCheck(this); characterCheck(this)" minlength="10" maxlength="11">
+        </div>
+        <div class="input-group">
+        </div>
+        <button id="join-btn" type="submit" class="btn">회원가입</button>
+      </form>
+      <label></label>
+    </div>
   </div>
+</div>
 {% endblock %}
 
 {% block script %}
-  <script>
-    window.onload = () => {
-      if (new URL(location.href).searchParams.get('error')) {
-          alert('이미 존재하는 아이디입니다.');
-      }
-      else if(new URL(location.href).searchParams.get('inputError')) {
-          alert('내용이 제대로 입력되지 않았습니다.');
-      }
+<script>
+  window.onload = () => {
+    if (new URL(location.href).searchParams.get('error')) {
+      alert('이미 존재하는 아이디입니다.');
+    }
+    else if (new URL(location.href).searchParams.get('inputError')) {
+      alert('내용이 제대로 입력되지 않았습니다.');
+    }
   };
 
-    const characterCheck = (obj) => {
-      let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi; 
-      if( regExp.test(obj.value) ){
-        alert("특수문자는 입력하실수 없습니다.");
-        obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움
-        }
-      };
-
-    const characterCheck2 = (obj) => {
-        let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>\$%&\'\"\\\(\=]/gi; 
-        if( regExp.test(obj.value) ){
-          alert("특수문자는 입력하실수 없습니다.");
-          obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움
-          }
-        };
-
-    const numCheck = (obj) => {
-      if(isNaN(obj.value)) {
-        alert("숫자만 입력 가능합니다.");
-        obj.value = obj.value.substring( 0 , obj.value.length - 1 );
-      }
+  const characterCheck = (obj) => {
+    let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
+    if (regExp.test(obj.value)) {
+      alert("특수문자는 입력하실수 없습니다.");
+      obj.value = obj.value.substring(0, obj.value.length - 1); // 입력한 특수문자 한자리 지움
     }
-  </script>
+  };
+
+  const characterCheck2 = (obj) => {
+    let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>\$%&\'\"\\\(\=]/gi;
+    if (regExp.test(obj.value)) {
+      alert("특수문자는 입력하실수 없습니다.");
+      obj.value = obj.value.substring(0, obj.value.length - 1); // 입력한 특수문자 한자리 지움
+    }
+  };
+
+  const numCheck = (obj) => {
+    if (isNaN(obj.value)) {
+      alert("숫자만 입력 가능합니다.");
+      obj.value = obj.value.substring(0, obj.value.length - 1);
+    }
+  }
+</script>
 {% endblock %}

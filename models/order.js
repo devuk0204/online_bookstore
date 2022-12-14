@@ -74,5 +74,13 @@ module.exports = class Order extends Sequelize.Model {
   }
 
   static associate(db) {
-  }
+    db.Order.hasMany(db.Order_item, {
+        foreignKey: {
+          allowNull: false,
+          name: 'order_no',
+          primaryKey: true,
+          onDelete: 'RESTRICT',
+          onUpdate: 'RESTRICT',
+      }, sourceKey: 'order_no'});
+    }
 };

@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="grid-container">
+        <div class="cell-header">
+          <h1>{{title}}</h1>
+        </div>
+        <div class="cell-aside">
+            <h2>이벤트</h2>
+            <a href="">진행중인 이벤트</a> <br><br>
+            <a href="">종료된 이벤트</a> <br><br>
+          </div>
+          
+          <div class="cell-content">
+            {% for event in event_commercials}
+                <a href="event/{{event.reception_no}}">{{event.title}}</a>
+                <br>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+{% endblock %}
