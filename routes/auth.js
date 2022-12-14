@@ -7,7 +7,7 @@ const { User, Shopping_basket, Point_log }= require('../models');
 const router = express.Router();
 
 router.post('/join', isNotLoggedIn, async (req, res, next) => {
-  const { id, name, password, phone_number, age, sex } = req.body;
+  const { id, name, password, phone_number, age, } = req.body;
   if(id == "" || name == "" || password == "" || age == "") {
     return res.redirect('/join?inputError=notInsert');
   }
@@ -24,7 +24,6 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
         password: hash,
         phone_number,
         age: age,
-        sex: sex,
         id_type: 1
       });
       await Point_log.create({

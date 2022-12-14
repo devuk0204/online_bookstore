@@ -208,8 +208,10 @@ router.post('/refund', isLoggedIn, async (req, res, next) => {
 
 router.post('/refund/post', isLoggedIn, async (req, res, next) => {
     const { order_no, refund_reason } = req.body;
-    var now = new Date();
-    var tomorrow = new Date(now.setDate(now.getDate() + 60*60*24));
+    let now = new Date();
+    let tomorrow = new Date();
+    tommorow.setDate(tomorrow.getDate + 1);
+    
     try {
         const order = await Order.findOne({ where: { order_no: order_no } });
         const items = await Order_item.findAll({ where: { order_no: order_no } });

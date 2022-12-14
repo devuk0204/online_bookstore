@@ -1,8 +1,9 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    <div class="book">
-      <div class="book_page">
+
+<div class="book">
+    <div class="book_page">
         <div class="book">
             {% if book.img %}
             <div class="book-img"><img src="{{book.img}}" alt="표지"></div><br>
@@ -30,7 +31,8 @@
                 <input type="text" name="ISBN" id="ISBN" value="{{book.ISBN}}" hidden>
                 <input type="text" name="event_yn" value="{{event}}" hidden>
                 <label for="quantity">구매 희망 수량</label>
-                <input type="number" name="quantity" value="1" min="1" max="{{book.book_stock}}" onkeyup="numCheck(this); characterCheck(this)" onkeydown="numCheck(this); characterCheck(this)">
+                <input type="number" name="quantity" value="1" min="1" max="{{book.book_stock}}"
+                    onkeyup="numCheck(this); characterCheck(this)" onkeydown="numCheck(this); characterCheck(this)">
                 <button type="submit" class="btn">주문하기</button>
             </form>
 
@@ -40,8 +42,8 @@
                 <button type="submit" class="btn">도서 삭제</button>
             </form>
         </div>
-      </div>
     </div>
+</div>
 {% endblock %}
 
 {% block script %}
@@ -54,17 +56,17 @@
     };
 
     const characterCheck = (obj) => {
-        let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi; 
-        if( regExp.test(obj.value) ){
-          alert("특수문자는 입력하실수 없습니다.");
-          obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움
-          }
-        };
+        let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
+        if (regExp.test(obj.value)) {
+            alert("특수문자는 입력하실수 없습니다.");
+            obj.value = obj.value.substring(0, obj.value.length - 1); // 입력한 특수문자 한자리 지움
+        }
+    };
 
     const numCheck = (obj) => {
-        if(isNaN(obj.value)) {
+        if (isNaN(obj.value)) {
             alert("숫자만 입력 가능합니다.");
-            obj.value = obj.value.substring( 0 , obj.value.length - 1 );
+            obj.value = obj.value.substring(0, obj.value.length - 1);
         }
     }
 </script>
