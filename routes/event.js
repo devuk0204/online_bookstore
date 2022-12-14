@@ -20,7 +20,7 @@ router.get('/list/notEnd', async (req, res, next) => {
             }
         });
         console.log(events);
-        res.render('event_list', {title: '이벤트 리스트(진행중)', events: events});
+        res.render('event', {title: '이벤트 리스트(진행중)', events: events});
     } catch(error) {
         console.error(error);
         next(error);
@@ -39,7 +39,7 @@ router.get('/list/end', async (req, res, next) => {
             }
         });
         console.log(events);
-        res.render('event_list', {title: '이벤트 리스트(종료)', events: events});
+        res.render('event', {title: '이벤트 리스트(종료)', events: events});
     } catch(error) {
         console.error(error);
         next(error);
