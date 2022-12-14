@@ -1,58 +1,67 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<div class="edit">
-    <div class="display">
-      <h2>아이디</h2>
-      <div>{{user.id}}</div>
-    </div>
-    <div class="display">
+<div class="grid-container">
+  <div class="grid-content">
+    <div class="edit">
+      <div class="display">
+        <h2>아이디</h2>
+        <div>{{user.id}}</div>
+      </div>
+      <div class="display">
         <form action="/my_page/edit" method="post">
+          <div class="input-group">
+            <h3>{{user.id}}</h3>
             <div class="input-group">
-              <h3>{{user.id}}</h3>
-              <div class="input-group">
-                <label for="join-name">아이디</label>
-                <input id="join-id" type="text" name="id" value="{{user.id}}" readonly></div>
-              <div class="input-group">
-                <label for="join-name">이름*<br>(2 ~ 15자 이내, 특수문자 사용 불가)</label>
-                <input id="join-name" type="text" name="name" value="{{user.name}}" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)" minlength="2" maxlength="15"></div>
-              <div class="input-group">
-                <label for="join-password">비밀번호*<br>(8 ~ 25자 이내, 특수문자 @, #만 사용 가능)</label>
-                <input id="join-password" type="password" name="password" minlength="8" maxlength="25" onkeyup="characterCheck2(this)" onkeydown="characterCheck2(this)">
-              </div>
-              <div class="input-group">
-                <label for="join-phone_number">휴대전화번호<br>(- 제외하고 ex)01012345678)</label>
-                <input type="text" name="phone_number" id="phone_number" value="{{user.phone_number}}" onkeyup="numCheck(this)" onkeydown="numCheck(this)" minlength="10" maxlength="11">
-              </div>
-              <button id="join-btn" type="submit" class="btn">수정</button>
+              <label for="join-name">아이디</label>
+              <input id="join-id" type="text" name="id" value="{{user.id}}" readonly>
+            </div>
+            <div class="input-group">
+              <label for="join-name">이름*<br>(2 ~ 15자 이내, 특수문자 사용 불가)</label>
+              <input id="join-name" type="text" name="name" value="{{user.name}}" onkeyup="characterCheck(this)"
+                onkeydown="characterCheck(this)" minlength="2" maxlength="15">
+            </div>
+            <div class="input-group">
+              <label for="join-password">비밀번호*<br>(8 ~ 25자 이내, 특수문자 @, #만 사용 가능)</label>
+              <input id="join-password" type="password" name="password" minlength="8" maxlength="25"
+                onkeyup="characterCheck2(this)" onkeydown="characterCheck2(this)">
+            </div>
+            <div class="input-group">
+              <label for="join-phone_number">휴대전화번호<br>(- 제외하고 ex)01012345678)</label>
+              <input type="text" name="phone_number" id="phone_number" value="{{user.phone_number}}"
+                onkeyup="numCheck(this)" onkeydown="numCheck(this)" minlength="10" maxlength="11">
+            </div>
+            <button id="join-btn" type="submit" class="btn">수정</button>
         </form>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock %}
 
 {% block script %}
-  <script>
-    const characterCheck = (obj) => {
-      var regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi; 
-      if( regExp.test(obj.value) ){
-        alert("특수문자는 입력하실수 없습니다.");
-        obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움
-        }
-      };
-
-    const characterCheck2 = (obj) => {
-        let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>\$%&\'\"\\\(\=]/gi; 
-        if( regExp.test(obj.value) ){
-          alert("특수문자는 입력하실수 없습니다.");
-          obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움
-          }
-        };
-
-    const numCheck = (obj) => {
-      if(isNaN(obj.value)) {
-        alert("숫자만 입력 가능합니다.");
-        obj.value = obj.value.substring( 0 , obj.value.length - 1 );
-      }
+<script>
+  const characterCheck = (obj) => {
+    var regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
+    if (regExp.test(obj.value)) {
+      alert("특수문자는 입력하실수 없습니다.");
+      obj.value = obj.value.substring(0, obj.value.length - 1); // 입력한 특수문자 한자리 지움
     }
-  </script>
+  };
+
+  const characterCheck2 = (obj) => {
+    let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>\$%&\'\"\\\(\=]/gi;
+    if (regExp.test(obj.value)) {
+      alert("특수문자는 입력하실수 없습니다.");
+      obj.value = obj.value.substring(0, obj.value.length - 1); // 입력한 특수문자 한자리 지움
+    }
+  };
+
+  const numCheck = (obj) => {
+    if (isNaN(obj.value)) {
+      alert("숫자만 입력 가능합니다.");
+      obj.value = obj.value.substring(0, obj.value.length - 1);
+    }
+  }
+</script>
 {% endblock %}

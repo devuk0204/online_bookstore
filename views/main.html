@@ -1,29 +1,12 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    <div class="search">
-        {% for book in books %}
-        <div class="book">
-          {% if book.img %}
-            <div class="book-img"><img src="{{book.img}}" alt="표지"></div><br>
-          {% endif %}
-          <label for="ISBN">ISBN</label>
-          <div class="ISBN">{{book.ISBN}}</div><br>
-          <label for="book-name">책 이름</label>
-          <div class="book-name">{{book.book_name}}</div><br>
-          <label for="publisher">출판사</label>
-          <div class="publisher">{{book.publisher}}</div><br>
-          <label for="publish-date">출판일</label>
-          <div class="publish-date">{{book.publish_date}}</div>
-          <br>
-          <a href="/book/page/{{book.ISBN}}">상세보기</a>
-          <form action="/book/page" method="post">
-            <input type="text" name="ISBN" id="ISBN" value="{{book.ISBN}}" hidden>
-            <button type="submit" class="btn">상세페이지 보기</button>
-          </form>
-          <br><br>
-        </div>
-        {% endfor %}
+    <div class="grid-container">
+      <div class="grid-aside">
+
+      </div>
+      <div class="grid-content">
+
       </div>
     </div>
 {% endblock %}

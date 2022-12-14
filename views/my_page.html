@@ -1,108 +1,113 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-  <div class="my_page">
-    <div class="display">
-      <h2>이름</h2>
-      <div>{{user.name}}</div>
+<div class="grid-container">
+  <div class="grid-content">
+    <div class="my_page">
+      <div class="display">
+        <h2>이름</h2>
+        <div>{{user.name}}</div>
+      </div>
+      <div class="display">
+        <h2>전화번호</h2>
+        <div>{{user.phone_number}}</div>
+      </div><br><br>
+      <div class="display">
+        <h2>적립금</h2>
+        <div>{{user.point}}</div>
+      </div><br><br>
+      <div class="display">
+        <h2>적립금 스탬프</h2>
+        <div>{{user.point_stamp}}</div>
+      </div><br><br>
+      <input id="my-id" type="hidden" value="{{user.id}}">
+      <a href="/my_page/edit" class="btn">회원정보 변경</a>
+      <a href="/my_page/card" class="btn">카드 등록</a>
+      <a href="/my_page/address" class="btn">주소 등록</a>
+      <a href="/my_page/delete" class="btn">회원 탈퇴</a>
+      <br><br>
     </div>
-    <div class="display">
-      <h2>전화번호</h2>
-      <div>{{user.phone_number}}</div>
-    </div><br><br>
-    <div class="display">
-      <h2>적립금</h2>
-      <div>{{user.point}}</div>
-    </div><br><br>
-    <div class="display">
-      <h2>적립금 스탬프</h2>
-      <div>{{user.point_stamp}}</div>
-    </div><br><br>
-    <input id="my-id" type="hidden" value="{{user.id}}">
-    <a href="/my_page/edit" class="btn">회원정보 변경</a>
-    <a href="/my_page/card" class="btn">카드 등록</a>
-    <a href="/my_page/address" class="btn">주소 등록</a>
-    <a href="/my_page/delete" class="btn">회원 탈퇴</a>
-    <br><br>
   </div>
-  {% for order in orders %}
-    <div class="order">
-      <label>주문 정보</label><br><br>
-      <label for="order-createdAt">주문일자</label>
-      <div class="order-createdAt">{{order.createdAt}}</div><br>
-      <label for="order-status">주문 상태</label>
-      <div class="order-status">{{order.order_status}}</div>
-      <form action="/my_page/orders" method="post">
-        <input type="hidden" name="order_no" value="{{order.order_no}}">
-        <button type="submit" class="btn">상세보기</button>
-      </form>
-      {% if order.order_status == '준비중' %}
-      <form action="/my_page/order_cancel" method="post">
-        <input type="hidden" name="order_no" value="{{order.order_no}}">
-        <button type="submit" class="btn">주문 취소</button>
-      </form>
-      {% elif order.order_status == '취소' or order.order_status == '전체반품' %}
-      <form action="/my_page/order_delete" method="post">
-        <input type="hidden" name="order_no" value="{{order.order_no}}">
-        <button type="submit" class="btn">주문 삭제</button>
-      </form>
-      {% else %}
-      <form action="/my_page/refund" method="post">
-        <input type="hidden" name="order_no" value="{{order.order_no}}">
-        <button type="submit" class="btn">환불 신청</button>
-      </form>
-      {% endif %}
-      <br><br>
-    </div>
-  {% endfor %}
-  {% for card in cards %}
-    <div class="card">
-      <label>카드 정보</label><br><br>
-      <label for="card-no">카드 번호</label>
-      <div class="card-no">{{card.card_no}}</div><br>
-      <label for="card-expiry-date">카드 유효기간</label>
-      <div class="card-expiry-date">{{card.card_expiry_date}}</div><br>
-      <label for="card-type">카드 유형</label>
-      <div class="card-type">{{card.card_type}}</div>
-      <br>
-      <form action="/my_page/card/delete" method="post">
-        <input type="text" name="card_no" id="card_no" value="{{card.card_no}}" hidden>
-        <button type="submit" class="btn">삭제</button>
-      </form>
-      <br><br>
-    </div>
-  {% endfor %}
-  {% for address in addresses %}
-    <div class="address">
-      <label>주소 정보</label><br><br>
-      <label for="postal-code">우편번호</label>
-      <div class="postal-code">{{address.postal_code}}</div><br>
-      <label for="address1">기본주소</label>
-      <div class="address1">{{address.address1}}</div><br>
-      <label for="address2">상세주소</label>
-      <div class="address2">{{address.address2}}</div>
-      <br>
-      <form action="/my_page/address/delete" method="post">
-        <input type="text" name="shipping_address_no" id="shipping_address_no" value="{{address.shipping_address_no}}" hidden>
-        <button type="submit" class="btn">삭제</button>
-      </form>
-      <br><br>
-    </div>
-  {% endfor %}
+</div>
+{% for order in orders %}
+<div class="order">
+  <label>주문 정보</label><br><br>
+  <label for="order-createdAt">주문일자</label>
+  <div class="order-createdAt">{{order.createdAt}}</div><br>
+  <label for="order-status">주문 상태</label>
+  <div class="order-status">{{order.order_status}}</div>
+  <form action="/my_page/orders" method="post">
+    <input type="hidden" name="order_no" value="{{order.order_no}}">
+    <button type="submit" class="btn">상세보기</button>
+  </form>
+  {% if order.order_status == '준비중' %}
+  <form action="/my_page/order_cancel" method="post">
+    <input type="hidden" name="order_no" value="{{order.order_no}}">
+    <button type="submit" class="btn">주문 취소</button>
+  </form>
+  {% elif order.order_status == '취소' or order.order_status == '전체반품' %}
+  <form action="/my_page/order_delete" method="post">
+    <input type="hidden" name="order_no" value="{{order.order_no}}">
+    <button type="submit" class="btn">주문 삭제</button>
+  </form>
+  {% else %}
+  <form action="/my_page/refund" method="post">
+    <input type="hidden" name="order_no" value="{{order.order_no}}">
+    <button type="submit" class="btn">환불 신청</button>
+  </form>
+  {% endif %}
+  <br><br>
+</div>
+{% endfor %}
+{% for card in cards %}
+<div class="card">
+  <label>카드 정보</label><br><br>
+  <label for="card-no">카드 번호</label>
+  <div class="card-no">{{card.card_no}}</div><br>
+  <label for="card-expiry-date">카드 유효기간</label>
+  <div class="card-expiry-date">{{card.card_expiry_date}}</div><br>
+  <label for="card-type">카드 유형</label>
+  <div class="card-type">{{card.card_type}}</div>
+  <br>
+  <form action="/my_page/card/delete" method="post">
+    <input type="text" name="card_no" id="card_no" value="{{card.card_no}}" hidden>
+    <button type="submit" class="btn">삭제</button>
+  </form>
+  <br><br>
+</div>
+{% endfor %}
+{% for address in addresses %}
+<div class="address">
+  <label>주소 정보</label><br><br>
+  <label for="postal-code">우편번호</label>
+  <div class="postal-code">{{address.postal_code}}</div><br>
+  <label for="address1">기본주소</label>
+  <div class="address1">{{address.address1}}</div><br>
+  <label for="address2">상세주소</label>
+  <div class="address2">{{address.address2}}</div>
+  <br>
+  <form action="/my_page/address/delete" method="post">
+    <input type="text" name="shipping_address_no" id="shipping_address_no" value="{{address.shipping_address_no}}"
+      hidden>
+    <button type="submit" class="btn">삭제</button>
+  </form>
+  <br><br>
+</div>
+{% endfor %}
 {% endblock %}
 
 {% block script %}
 <script>
-    window.onload = () => {
-        if (new URL(location.href).searchParams.get('inputError')) {
-            alert('입력이 잘못되었습니다.');
-        }
-        else if(new URL(location.href).searchParams.get('cardError')) {
-          alert('이미 존재하는 카드입니다.');
-        }
-        else if(new URL(location.href).searchParams.get('addressError')) {
-          alert('이미 존재하는 주소입니다.')
-        }
-    };
+  window.onload = () => {
+    if (new URL(location.href).searchParams.get('inputError')) {
+      alert('입력이 잘못되었습니다.');
+    }
+    else if (new URL(location.href).searchParams.get('cardError')) {
+      alert('이미 존재하는 카드입니다.');
+    }
+    else if (new URL(location.href).searchParams.get('addressError')) {
+      alert('이미 존재하는 주소입니다.')
+    }
+  };
 </script>
 {% endblock %}
