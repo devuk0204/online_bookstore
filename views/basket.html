@@ -2,13 +2,14 @@
 
 {% block content %}
 <div class="grid-container">
+  <div class="grid-aside"></div>
   <div class="grid-content">
     <div class="basket">
       <label>장바구니</label>
       {% for item in items %}
       <div class="item"><br><br>
         <label for="item-ISBN">ISBN</label>
-        <div class="item-ISBN">{{item.book_name}}</div><br>
+        <div class="item-ISBN">{{item.ISBN}}</div><br>
         <div>{{item.name}}</div>
         <label for="item-quantity">주문 수량</label>
         <div class="item-quantity">{{item.quantity}}권</div><br>
@@ -23,8 +24,6 @@
       <div class="order">
         <form action="/basket/order" method="post">
           <label for="point">현재 포인트 : {{user.point}}</label><br>
-          <label for="point-stamp">현재 포인트 스탬프 : {{user.point_stamp}} (포인트 스탬프가 10개 이상일때 10개를 소모하여 포인트 사용이
-            가능합니다.)</label><br>
           <label for="point">포인트 사용(1000원 단위로만 사용 가능)</label><br>
           <input type="number" name="use_point" min="0" value="0"><br>
           <input type="number" name="basket_no" id="basket_no" value="{{basket.id}}" hidden>
