@@ -1,10 +1,12 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-  <div class="basket">
-    <label>장바구니</label>
-  {% for item in items %}
-    <div class="item"><br><br>
+<div class="grid-container">
+  <div class="grid-content">
+    <div class="basket">
+      <label>장바구니</label>
+      {% for item in items %}
+      <div class="item"><br><br>
         <label for="item-ISBN">ISBN</label>
         <div class="item-ISBN">{{item.book_name}}</div><br>
         <div>{{item.name}}</div>
@@ -12,37 +14,42 @@
         <div class="item-quantity">{{item.quantity}}권</div><br>
         <br><br>
         <form action="/basket/delete" method="post">
-            <input type="text" name="item_id" id="item_id" value="{{item.id}}" hidden>
-            <button type="submit" class="btn">삭제</button>
+          <input type="text" name="item_id" id="item_id" value="{{item.id}}" hidden>
+          <button type="submit" class="btn">삭제</button>
         </form>
         <br><br><br><br>
-    </div>
-  {% endfor %}
-  <div class = order>
-    <form action="/basket/order" method="post">
-        <label for="point">현재 포인트 : {{user.point}}</label><br>
-        <label for="point-stamp">현재 포인트 스탬프 : {{user.point_stamp}} (포인트 스탬프가 10개 이상일때 10개를 소모하여 포인트 사용이 가능합니다.)</label><br>
-        <label for="point">포인트 사용(1000원 단위로만 사용 가능)</label><br>
-        <input type="number" name="use_point" min="0" value="0"><br>
-        <input type="number" name="basket_no" id="basket_no" value="{{basket.id}}" hidden>
-        <label for="card_no">카드번호 선택</label>
-        <select name="card_no" id="card_no">
+      </div>
+      {% endfor %}
+      <div class="order">
+        <form action="/basket/order" method="post">
+          <label for="point">현재 포인트 : {{user.point}}</label><br>
+          <label for="point-stamp">현재 포인트 스탬프 : {{user.point_stamp}} (포인트 스탬프가 10개 이상일때 10개를 소모하여 포인트 사용이
+            가능합니다.)</label><br>
+          <label for="point">포인트 사용(1000원 단위로만 사용 가능)</label><br>
+          <input type="number" name="use_point" min="0" value="0"><br>
+          <input type="number" name="basket_no" id="basket_no" value="{{basket.id}}" hidden>
+          <label for="card_no">카드번호 선택</label>
+          <select name="card_no" id="card_no">
             {% for card in cards %}
-                <option value="{{card.card_no}}">{{card.card_no}}</option>
+            <option value="{{card.card_no}}">{{card.card_no}}</option>
             {% endfor %}
-        </select>
-        <label for="address_no">주소지 선택</label>
-        <select name="address_no" id="address">
+          </select>
+          <label for="address_no">주소지 선택</label>
+          <select name="address_no" id="address">
             {% for address in addresses %}
-                <option value="{{address.shipping_address_no}}">{{address.postal_code}}, {{address.address1}}, {{address.address2}}</option>
+            <option value="{{address.shipping_address_no}}">{{address.postal_code}}, {{address.address1}},
+              {{address.address2}}</option>
             {% endfor %}
-        </select>
-        <button type="submit">주문하기</button>
-    </form>
+          </select>
+          <button type="submit">주문하기</button>
+        </form>
+      </div>
+    </div>
   </div>
-{% endblock %}
 
-{% block script %}
-<script>
-</script>
-{% endblock %}
+  {% endblock %}
+
+  {% block script %}
+  <script>
+  </script>
+  {% endblock %}

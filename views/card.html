@@ -1,12 +1,17 @@
 {% extends 'layout.html' %}
 {% block content %}
-<form id = 'form' action = '/my_page/card' method = 'post'>
-    <div class="input-group">
+<div class="grid-container">
+  <div class="grid-content">
+    <form id='form' action='/my_page/card' method='post'>
+      <div class="input-group">
         <label for="join-id"></label>
-        <input id="join-id" type="text" name="id" value="{{user.id}}" hidden></div>
+        <input id="join-id" type="text" name="id" value="{{user.id}}" hidden>
+      </div>
       <div class="input-group">
         <label for="join-card_number">카드번호*<br>(16자, 숫자만 사용 가능)</label>
-        <input id="join-name" type="text" name="card_no" onkeyup="characterCheck(this); numCheck(this)" onkeydown="characterCheck(this); numCheck(this)" minlength="2" maxlength="15"></div>
+        <input id="join-name" type="text" name="card_no" onkeyup="characterCheck(this); numCheck(this)"
+          onkeydown="characterCheck(this); numCheck(this)" minlength="2" maxlength="15">
+      </div>
       <div class="input-group">
         <label for="join-expiry_date">카드유효기간*</label>
         <input id="join-expiry_date" type="date" name="card_expiry_date">
@@ -14,37 +19,37 @@
       <div class="input-group">
         <label for="join-card_type">카드 유형</label>
         <select name="card_type" id="card_type">
-            <option value="credit_card">신용카드</option>
-            <option value="debit_card">체크카드</option>
+          <option value="credit_card">신용카드</option>
+          <option value="debit_card">체크카드</option>
         </select>
       </div>
-    <button type = "submit">register</button>
-</form>
-{% endblock %}
+      <button type="submit">register</button>
+    </form>
+    {% endblock %}
 
-{% block script %}
-<script>
-  window.onload = () => {
-    if (new URL(location.href).searchParams.get('error')) {
-        alert('이미 존재하는 카드입니다.');
-    }
-    else if(new URL(location.href).searchParams.get('inputError')) {
-        alert('내용이 제대로 입력되지 않았습니다.');
-    }
-};
-    const characterCheck = (obj) => {
-        let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi; 
-        if( regExp.test(obj.value) ){
-          alert("특수문자는 입력하실수 없습니다.");
-          obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움
-          }
-        };
-
-    const numCheck = (obj) => {
-        if(isNaN(obj.value)) {
-            alert("숫자만 입력 가능합니다.");
-            obj.value = obj.value.substring( 0 , obj.value.length - 1 );
+    {% block script %}
+    <script>
+      window.onload = () => {
+        if (new URL(location.href).searchParams.get('error')) {
+          alert('이미 존재하는 카드입니다.');
         }
-    }
-</script>
-{% endblock %}
+        else if (new URL(location.href).searchParams.get('inputError')) {
+          alert('내용이 제대로 입력되지 않았습니다.');
+        }
+      };
+      const characterCheck = (obj) => {
+        let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
+        if (regExp.test(obj.value)) {
+          alert("특수문자는 입력하실수 없습니다.");
+          obj.value = obj.value.substring(0, obj.value.length - 1); // 입력한 특수문자 한자리 지움
+        }
+      };
+
+      const numCheck = (obj) => {
+        if (isNaN(obj.value)) {
+          alert("숫자만 입력 가능합니다.");
+          obj.value = obj.value.substring(0, obj.value.length - 1);
+        }
+      }
+    </script>
+    {% endblock %}
