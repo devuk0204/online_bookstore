@@ -2,12 +2,6 @@
 
 {% block content %}
     <div class="search">
-      <div class="book">
-        <form id="book-form" action="/book" method="post">
-          <label>검색</label>
-          <input type="text" name="book_name" placeholder="책 이름" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)">
-          <button class="btn">검색</button>
-        </form><br><br>
         {% for book in books %}
         <div class="book">
           {% if book.img %}
@@ -22,6 +16,7 @@
           <label for="publish-date">출판일</label>
           <div class="publish-date">{{book.publish_date}}</div>
           <br>
+          <a href="/book/page/{{book.ISBN}}">상세보기</a>
           <form action="/book/page" method="post">
             <input type="text" name="ISBN" id="ISBN" value="{{book.ISBN}}" hidden>
             <button type="submit" class="btn">상세페이지 보기</button>
@@ -34,6 +29,13 @@
 {% endblock %}
 
 {% block script %}
+{% for popup in popups %}
+<script>
+  window.onload = () => {
+    window.open("https://localhost:3000/popup/{{popup.reception_no}}", width = 800, length = 600)
+  }
+</script>
+{% endfor %}
 <script>
   const characterCheck = (obj) => {
       let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi; 

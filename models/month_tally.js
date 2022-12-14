@@ -24,17 +24,9 @@ module.exports = class Month_tally extends Sequelize.Model {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      sex: {
-        type: Sequelize.STRING(6),
-        allowNull: false,
-      },
-      age_range: {
-        type: Sequelize.STRING(4),
-        allowNull: false,
-      },
       best_seller: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
     }, {
       sequelize,

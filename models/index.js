@@ -17,6 +17,11 @@ const Month_tally = require('./month_tally');
 const Week_tally = require('./week_tally');
 const Sales_revenue = require('./sales_revenue');
 const Admin_post = require('./admin_post');
+const Commercial_policy = require('./commercial_policy');
+const Event_commercial = require('./event_commercial');
+const Participate_user = require('./participate_user');
+const Event_tally = require('./event_tally');
+
 
 const db = {};
 const sequelize = new Sequelize(
@@ -41,6 +46,10 @@ db.Week_tally = Week_tally;
 db.Month_tally = Month_tally;
 db.Sales_revenue = Sales_revenue;
 db.Admin_post = Admin_post;
+db.Commercial_policy = Commercial_policy;
+db.Event_commercial = Event_commercial;
+db.Participate_user = Participate_user;
+db.Event_tally = Event_tally;
 
 console.log(db);
 
@@ -61,6 +70,10 @@ Week_tally.init(sequelize);
 Month_tally.init(sequelize);
 Sales_revenue.init(sequelize);
 Admin_post.init(sequelize);
+Commercial_policy.init(sequelize);
+Event_commercial.init(sequelize);
+Participate_user.init(sequelize);
+Event_tally.init(sequelize);
 
 User.associate(db);
 Card.associate(db);
@@ -78,5 +91,9 @@ Week_tally.associate(db);
 Month_tally.associate(db);
 Sales_revenue.associate(db);
 Admin_post.associate(db);
+Commercial_policy.associate(db);
+Event_commercial.associate(db);
+Participate_user.associate(db);
+Event_tally.associate(db);
 
 module.exports = db;

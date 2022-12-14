@@ -7,15 +7,15 @@ const { User, Shopping_basket, Point_log }= require('../models');
 const router = express.Router();
 
 router.post('/join', isNotLoggedIn, async (req, res, next) => {
-  const { id, name, password, phone_number } = req.body;
-  if(id == "" || name == "" || password == "") {
+  const { id, name, password, phone_number, age, sex } = req.body;
+  if(id == "" || name == "" || password == "" || age == "") {
     return res.redirect('/join?inputError=notInsert');
   }
   else {
     try {
       const exUser = await User.findOne({ where: { id } });
       if (exUser) {
-        return res.redirect('/join?error=exist');
+        return res.send("<script>alert('이미 존재하는 회원입니다.'); history.back();</script>");
       }
       const hash = await bcrypt.hash(password, 12);
       await User.create({
@@ -23,6 +23,8 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
         name,
         password: hash,
         phone_number,
+        age: age,
+        sex: sex,
         id_type: 1
       });
       await Point_log.create({

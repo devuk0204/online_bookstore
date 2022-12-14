@@ -45,8 +45,8 @@ router.post('/edit', isLoggedIn, async (req, res, next) => {
     }
 });
 
-router.get('/address', isLoggedIn, async (req, res, next) => {
-    await res.render('../views/address.html');
+router.get('/address', isLoggedIn, async (req, res) => {
+    res.render('../views/address.html');
 });
 
 router.post('/address', isLoggedIn, async (req, res, next) => {

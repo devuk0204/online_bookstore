@@ -4,8 +4,9 @@ module.exports = class Publisher extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
       publisher_name: {
-        type: Sequelize.STRING(),
+        type: Sequelize.STRING(50),
         allowNull: false,
+        primaryKey: true,
       },
       publisher_address: {
         type: Sequelize.STRING(50),
@@ -33,7 +34,16 @@ module.exports = class Publisher extends Sequelize.Model {
         name: 'publisher',
         allowNull: false,
         onDelete: 'RESTRICT',
-        onUpdate: 'RESTRICT'
+        onUpdate: 'RESTRICT',
+      }, sourckey: 'publisher_name'
+    });
+
+    db.Publisher.hasMany(db.Event_commercial, {
+      foreignKey: {
+        name: 'publisher_name',
+        allowNull: false,
+        onDelete: 'RESTRICT',
+        onUpdate: 'RESTRICT',
       }, sourckey: 'publisher_name'
     })
   }

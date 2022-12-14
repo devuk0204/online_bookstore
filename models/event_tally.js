@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-module.exports = class Week_tally extends Sequelize.Model {
+module.exports = class Event_tally extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
       tally_no: {
@@ -8,28 +8,32 @@ module.exports = class Week_tally extends Sequelize.Model {
         primaryKey: true,
         autoIncrement: true
       },
-      tally_month: {
+      tally_day: {
         type: Sequelize.DATEONLY,
         allowNull: false,
       },
-      ISBN: {
-        type: Sequelize.STRING(13),
-        allowNull: false,
-      },
-      sales: {
+      reception_no: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      best_seller: {
+      views: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
       },
+      participants: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      beneficiary: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      }
     }, {
       sequelize,
       timestamps: false,
       underscored: false,
-      modelName: 'Week_tally',
-      tableName: 'week_tally',
+      modelName: 'Event_tally',
+      tableName: 'event_tally',
       paranoid: true,
       charset: 'utf8',
       collate: 'utf8_general_ci',

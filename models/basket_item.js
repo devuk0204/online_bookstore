@@ -6,6 +6,10 @@ module.exports = class Basket_item extends Sequelize.Model {
       quantity: {
         type: Sequelize.INTEGER,
         allowNull: false
+    },
+    event_yn: {
+      type: Sequelize.INTEGER,
+      allowNull: true,
     }
     }, {
       sequelize,

@@ -1,6 +1,6 @@
 const express = require('express');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
-const { Card, Shipping_address, Shopping_basket, Basket_item, Book, Order, Order_item, User, Sequelize} = require('../models');
+const { Card, Shipping_address, Shopping_basket, Basket_item, Book, Order, Order_item, User, Sequelize, Event_commercial} = require('../models');
 const { Op } = require('sequelize');
 
 const router = express.Router();
@@ -60,8 +60,36 @@ router.get('/login', isNotLoggedIn, (req, res) => {
   res.render('login', { title: '로그인' });
 });
 
-router.get('/', (req, res) => {
-  res.render('main');
+router.get('/', async(req, res, next) => {
+  try{
+    const popups = await Event_commercial.findAll({
+      attributes: ['reception_no'],
+      where: {
+        post_type: 2,
+        status: 1
+      } 
+    })
+    res.render('main', { title: '메인페이지', popups: popups });
+  } catch(error) {
+    console.error(error);
+    next(error);
+  }
 });
+
+router.get('/popup/:reception_no', async (req, res, next) => {
+  try {
+    const reception_no = req.params.reception_no;
+    const popup = await Event_commercial.findOne({ 
+      attributes: [reception_no, popup_img, title],
+      where: {
+        reception_no: reception_no,
+      }});
+    
+    res.render('popup', { title: popup.title, popup: popup});
+  } catch(error) {
+    console.error(error);
+    next(error);
+  }
+})
 
 module.exports = router;

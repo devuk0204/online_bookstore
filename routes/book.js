@@ -38,8 +38,8 @@ router.post('/delete', async (req, res, next) => {
     }
 });
 
-router.post('/page', async (req, res, next) => {
-    const { ISBN } = req.body;
+router.get('/page/:ISBN/:event', async (req, res, next) => {
+    const { ISBN, event } = req.params;
     try {
         const book = await Book.findOne({
             where: {
@@ -47,7 +47,8 @@ router.post('/page', async (req, res, next) => {
             }
         });
         return res.render('book', {
-            book: book
+            book: book,
+            event: event
         });
     } catch(error) {
         console.error(error);

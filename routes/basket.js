@@ -1,6 +1,6 @@
 const express = require('express');
 const { isLoggedIn } = require('./middlewares');
-const { Book, Basket_item, Shopping_basket, Order, Card, Shipping_address, Order_item, Order_status, User, Point_log } = require('../models');
+const { Book, Basket_item, Shopping_basket, Order, Card, Shipping_address, Order_item, User, Point_log } = require('../models');
 const router = express.Router();
 
 router.get('/', isLoggedIn , async (req, res, next) => {
@@ -96,9 +96,6 @@ router.post('/order', isLoggedIn, async (req, res, next) => {
         if(use_point % 1000 != 0){
             return res.send("<script>alert('포인트는 천원 단위로만 사용 가능합니다.'); history.back();</script>");
         }
-        if(use_point > 0 && user.point_stamp < 10) {
-            return res.send("<script>alert('포인트 스탬프가 10 이상일때 10개를 소모하여 포인트를 사용가능합니다.'); history.back();</script>");
-        }
         let total_price = 0;
         const card = await Card.findOne({
             where: {
@@ -161,7 +158,6 @@ router.post('/order', isLoggedIn, async (req, res, next) => {
         if(use_point > 0) {
             await User.update({
                 point: user.point - use_point + temp_point,
-                point_stamp: user.point_stamp - 10 + total_quantity,
             }, {where: {id: id}});
             await Point_log.create({
                 description: '주문',
@@ -173,7 +169,6 @@ router.post('/order', isLoggedIn, async (req, res, next) => {
         } else {
             await User.update({
                 point: user.point - use_point + temp_point,
-                point_stamp: user.point_stamp + total_quantity,
             }, {where: {id: id}});
         }
         

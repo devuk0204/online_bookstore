@@ -18,7 +18,15 @@ module.exports = class Order_item extends Sequelize.Model {
     sell_price: {
         type: Sequelize.INTEGER,
         allowNull: false
-    }
+    },
+    use_point: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    discount_price: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
     }, {
       sequelize,
       timestamps: false,

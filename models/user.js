@@ -28,11 +28,6 @@ module.exports = class User extends Sequelize.Model {
         type: Sequelize.STRING(11),
         allowNull: true
       },
-      point_stamp: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-        defaultValue: 0
-      },
       point: {
         type: Sequelize.INTEGER,
         allowNull: true,

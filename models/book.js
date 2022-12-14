@@ -29,6 +29,10 @@ module.exports = class Book extends Sequelize.Model {
         type: Sequelize.STRING(20),
         allowNull: false
       },
+      discount_rate: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       publish_date: {
         type: Sequelize.DATEONLY,
         allowNull: false,
@@ -37,6 +41,10 @@ module.exports = class Book extends Sequelize.Model {
       book_writer: {
         type: Sequelize.STRING(10),
         allowNull: false
+      },
+      publisher: {
+        type: Sequelize.STRING(50),
+        allowNull: false,
       }
     }, {
       sequelize,

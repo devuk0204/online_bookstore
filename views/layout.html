@@ -23,9 +23,17 @@
         {% endif %}
         <br>
         </div>
+        <div class="book">
+          <form id="book-form" action="/book" method="post">
+            <label>검색</label>
+            <input type="text" name="book_name" placeholder="책 이름" onkeyup="characterCheck(this)" onkeydown="characterCheck(this)">
+            <button class="btn">검색</button>
+          </form><br><br>
         <a href="/" class="btn">Home</a>
+        {% if user.id_type == 1 %}
         <a href="/book_register" class="btn">도서 등록</a>
-        <a href="/publisher" class="btn">출판사 등록</a>
+        <a href="/publisher/register" class="btn">출판사 등록</a>
+        {% endif %}
       </div><br><br>
       {% block content %}
       {% endblock %}

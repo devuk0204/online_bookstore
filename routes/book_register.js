@@ -17,7 +17,7 @@ const upload = multer({
       },
     }),
     limits: { fileSize: 5 * 1024 * 1024 },
-  });
+});
   
 router.post('/img', upload.single('img'), (req, res) => {
     console.log(req.file);
@@ -31,7 +31,7 @@ router.get(('/'), (req, res, next) => {
 const upload2 = multer();
 router.post('/', upload2.none(), async (req, res, next) => {
     console.log(req.body);
-    const { ISBN, book_name, book_stock, list_price, category, publish_date, book_writer, publisher } = req.body;
+    const { ISBN, book_name, book_stock, list_price, category, publish_date, book_writer, publisher, discount_rate } = req.body;
     if(ISBN == "" || book_name == "" || book_stock == "" || publish_date == "" || book_writer == "" || publisher == "") {
         return res.redirect('/book_register?inputError=notInsert');
     }
@@ -48,6 +48,7 @@ router.post('/', upload2.none(), async (req, res, next) => {
             book_name: book_name,
             book_stock: book_stock,
             list_price: list_price,
+            discount_rate: discount_rate,
             category: category,
             publish_date: publish_date,
             book_writer: book_writer,

@@ -18,15 +18,7 @@ module.exports = class Day_tally extends Sequelize.Model {
       },
       sales: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      sex: {
-        type: Sequelize.STRING(6),
-        allowNull: false,
-      },
-      age_range: {
-        type: Sequelize.STRING(4),
-        allowNull: false,
+        allowNull: true,
       },
     }, {
       sequelize,

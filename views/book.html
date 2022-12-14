@@ -24,10 +24,11 @@
             <label for="publish-date">출판일</label>
             <div class="publish-date">{{book.publish_date}}</div><br>
             <label for="writer">저자</label>
-            <div class="writer">{{book.writer}}</div><br><br><br>
+            <div class="writer">{{book.book_writer}}</div><br><br><br>
             <br>
             <form action="/basket" method="post">
                 <input type="text" name="ISBN" id="ISBN" value="{{book.ISBN}}" hidden>
+                <input type="text" name="event_yn" value="{{event}}" hidden>
                 <label for="quantity">구매 희망 수량</label>
                 <input type="number" name="quantity" value="1" min="1" max="{{book.book_stock}}" onkeyup="numCheck(this); characterCheck(this)" onkeydown="numCheck(this); characterCheck(this)">
                 <button type="submit" class="btn">주문하기</button>
