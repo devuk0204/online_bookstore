@@ -1,25 +1,25 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const { Publisher, Book, Day_tally, Week_tally, Month_tally, Event_commercial, Event_tally, Participate_user, Commercial_policy } = require('../models');
+const { Publisher, Book, Day_tally, Week_tally, Month_tally, Event_commercial, Event_tally, Participate_user, User } = require('../models');
 const { isLoggedIn } = require('./middlewares');
 const router = express.Router();
 
 router.get('/', async(req, res) => {
-    res.redirect('/book');
+    res.redirect('/admin/event');
 });
 
 router.get('/register', async (req, res) => {
-    res.render('admin', { title: '관리자 등록' });
+    res.render('admin_register', { title: '관리자 등록' });
 });
 
 router.post('/register', async (req, res, next) => {
-    const { id, password, name } = req.body;
+    const { id, admin_pw, name } = req.body;
     try {
-        const exAdmin = await user.findOne({ where: { id: id } });
+        const exAdmin = await User.findOne({ where: { id: id } });
         if (exAdmin) {
             return res.send("<script>alert('이미 존재하는 관리자계정입니다.'); history.back();</script>");
         }
-        const hash = await bcrypt.hash(password, 12);
+        const hash = await bcrypt.hash(admin_pw, 12);
         await User.create({
             id: id,
             password: hash,
@@ -36,9 +36,7 @@ router.post('/register', async (req, res, next) => {
 router.get('/event', isLoggedIn, async(req, res, next) => {
     if(req.user.id_type == 2) {
         try {
-            const events = await Event_commercial.findAll({
-                attributes: [title, start_date, end_date],
-            });
+            const events = await Event_commercial.findAll();
             res.render('event_list', { title: '관리자 페이지', events: events});
         } catch(error) {
             console.error(error);

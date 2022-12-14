@@ -1,6 +1,6 @@
 const express = require('express');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
-const { Card, Shipping_address, Shopping_basket, Basket_item, Book, Order, Order_item, User, Sequelize, Event_commercial} = require('../models');
+const { Card, Shipping_address, Shopping_basket, Basket_item, Book, Order, Order_item, User, Sequelize, Event_commercial, Week_tally, Month_tally} = require('../models');
 const { Op } = require('sequelize');
 
 const router = express.Router();
@@ -68,8 +68,44 @@ router.get('/', async(req, res, next) => {
         post_type: 2,
         status: 1
       } 
-    })
-    res.render('main', { title: '메인페이지', popups: popups });
+    });
+    const best_seller_we = await Week_tally.findAll({
+      limit: 5,
+      where: {
+        best_seller : 1
+      }, 
+      order: [['tally_no', 'DESC']],
+    });
+    let best_seller_w = {};
+    for(i = 0; i < 5; i ++) {
+      best_seller_w.push(await Book.findOne({
+        where: {
+          ISBN: best_seller_we[i].ISBN
+        }
+      }))
+    };
+    const best_seller_mo = await Month_tally.findAll({
+      limit: 5,
+      where: {
+        best_seller : 1
+      }, 
+      order: [['tally_no', 'DESC']],
+    });
+    let best_seller_m = {};
+    for(i = 0; i < 5; i ++) {
+      best_seller_m.push(await Book.findOne({
+        where: {
+          ISBN: best_seller_mo[i].ISBN
+        }
+      }))
+    };
+    const events = await Event_commercial.findAll({
+      limit: 5,
+      where: {
+        status: 1
+      }
+    });
+    res.render('main', { title: '메인페이지', popups: popups, best_seller_m, best_seller_w, events });
   } catch(error) {
     console.error(error);
     next(error);
@@ -90,6 +126,7 @@ router.get('/popup/:reception_no', async (req, res, next) => {
     console.error(error);
     next(error);
   }
-})
+});
+
 
 module.exports = router;

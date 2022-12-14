@@ -111,7 +111,7 @@ router.get('/event', isLoggedIn, async(req, res, next) => {
                     publisher_name: name,
                 }
             });
-            res.render('event_list', { title: '출판사 페이지', events: events});
+            res.render('event_list_p', { title: '출판사 페이지', events: events });
         } catch(error) {
             console.error(error);
             next(error);
@@ -136,7 +136,7 @@ router.get('/event/tally/:reception_no', isLoggedIn, async(req, res, next) => {
                     reception_no: reception_no
                 }
             });
-            res.render('event_tally', { title: '출판사 페이지', event_tallies: event_tally });
+            res.render('event_tally', { title: '출판사 페이지', event_tallies: event_tally, reception_no: reception_no });
         } else {
             res.send("<script>alert('해당 도서를 출판한 출판사만 이용 가능합니다.'); history.back();</script>");
         }
@@ -161,7 +161,7 @@ router.get('/event/participants/:reception_no', isLoggedIn, async (req, res, nex
                     reception_no: reception_no
                 }
             });
-            res.render('event_participants', { title: '출판사 페이지', participate_users: participants });
+            res.render('event_user_list', { title: '출판사 페이지', participate_users: participants });
         } else {
             res.send("<script>alert('해당 도서를 출판한 출판사만 이용 가능합니다.'); history.back();</script>");
         }
@@ -212,10 +212,7 @@ router.post('/event/participants', isLoggedIn, async(req, res, next) => {
 
 router.get('/event_reception', isLoggedIn, async(req, res, next) => {
     try {
-        const policy_no = await Commercial_policy.findOne({
-            order: [policy_effective_date, 'DESC']
-        });
-        res.render('/event_reception', {title: '출판사 페이지'})
+        res.render('event_reception_p', {title: '출판사 페이지'})
     } catch(error) {
         console.error(error);
         next(error);

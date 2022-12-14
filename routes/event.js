@@ -7,15 +7,8 @@ const router = express.Router();
 
 router.get('/list/notEnd', async (req, res, next) => {
     try {
-        const date = new Date();
         const events = await Event_commercial.findAll({
             where: {
-                start_date: {
-                    [Op.lte]: date
-                },
-                end_date: {
-                    [Op.gte]: date
-                },
                 status: 1
             }
         });
@@ -29,12 +22,8 @@ router.get('/list/notEnd', async (req, res, next) => {
 
 router.get('/list/end', async (req, res, next) => {
     try {
-        const date = new Date();
         const events = await Event_commercial.findAll({
             where: {
-                end_date: {
-                    [Op.lte]: date
-                },
                 status: 0
             }
         });
@@ -47,9 +36,10 @@ router.get('/list/end', async (req, res, next) => {
 });
 
 router.get('/:reception_no', async (req, res, next) => {
-    const reception_no = req.params.reception_no;
     try {
-        const event = await Event_commercial.findOne({ where: reception_no});
+        const reception_no = req.params.reception_no;
+        console.log(reception_no)
+        const event = await Event_commercial.findOne({ where: {reception_no: reception_no}});
         res.render('event_page', {title: '이벤트 상세 페이지', event: event});
     } catch(error) {
         console.error(error);

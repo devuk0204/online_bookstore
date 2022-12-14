@@ -12,14 +12,12 @@
           </div>
           
           <div class="cell-content">
-           {% for event in events %}
-                <a href="/event/{{event.reception_no}}">
-                  <img src="{{event.banner_img}}" alt="배너이미지"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  {{event.title}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  {{event.start_date}} ~ {{event.end_date}}
-                </a>
-                <br>
-            {% endfor %}
+            <h3>{{event.title}}</h3>
+            <img src="{{event.description_img}}" alt="이벤트 설명 이미지">
+            <p>{{event.content}}</p>
+
+            
+           <a href=""></a>
           </div>
         </div>
       </div>

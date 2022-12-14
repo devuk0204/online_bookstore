@@ -17,7 +17,7 @@ module.exports = class Event_commercial extends Sequelize.Model {
             allowNull: false,
         },
         commercial_event_status: {
-            type: Sequelize.STRING(15),
+            type: Sequelize.INTEGER,
             allowNull: false,
         },
         post_type: {
@@ -88,6 +88,7 @@ module.exports = class Event_commercial extends Sequelize.Model {
         exhausted_quantity: {
             type: Sequelize.INTEGER,
             allowNull: true,
+            defaultValue: 0
         },
         event_question: {
             type: Sequelize.STRING(50),

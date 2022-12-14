@@ -41,7 +41,7 @@ module.exports = class Publisher extends Sequelize.Model {
     db.Publisher.hasMany(db.Event_commercial, {
       foreignKey: {
         name: 'publisher_name',
-        allowNull: false,
+        allowNull: true,
         onDelete: 'RESTRICT',
         onUpdate: 'RESTRICT',
       }, sourckey: 'publisher_name'

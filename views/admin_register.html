@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="grid-container">
+    <div class="grid-aside"></div>
+    <div class="grid-content">
+        <form id='form' action='/admin/register' method='post'>
+            <p>관리자 계정 아이디*<br>(특수문자 입력 불가)</p>
+            <input type='text' name='id' id="id" minlength="1" maxlength="16"
+                onkeyup="characterCheck(this)" onkeydown="characterCheck(this)">
+            <p>관리자 계정 비밀번호*<br>(특수문자 입력 불가)</p>
+            <input type='text' name='admin_pw' id="pw" minlength="1" maxlength="16"
+                onkeyup="characterCheck(this)" onkeydown="characterCheck(this)">
+            <p>관리자 이름*<br>(특수문자 입력 불가)</p>
+            <input type='text' name='name' id="name" minlength="1" maxlength="16"
+                onkeyup="characterCheck(this)" onkeydown="characterCheck(this)">
+            <br><br>
+            <button type="submit">등록</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    const characterCheck = (obj) => {
+        let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
+        if (regExp.test(obj.value)) {
+            alert("특수문자는 입력하실수 없습니다.");
+            obj.value = obj.value.substring(0, obj.value.length - 1); // 입력한 특수문자 한자리 지움
+        }
+    };
+
+    const characterCheck2 = (obj) => {
+        let regExp = /[ \{\}\[\]\/?.;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi;
+        if (regExp.test(obj.value)) {
+            alert("특수문자는 입력하실수 없습니다.");
+            obj.value = obj.value.substring(0, obj.value.length - 1); // 입력한 특수문자 한자리 지움
+        }
+    };
+
+    const numCheck = (obj) => {
+        if (isNaN(obj.value)) {
+            alert("숫자만 입력 가능합니다.");
+            obj.value = obj.value.substring(0, obj.value.length - 1);
+        }
+    }
+</script>
+{% endblock %}

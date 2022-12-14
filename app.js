@@ -19,6 +19,7 @@ const publisherRouter = require('./routes/publisher');
 const bookRouter = require('./routes/book');
 const basketRouter = require('./routes/basket');
 const eventRouter = require('./routes/event');
+const adminRouter = require('./routes/admin');
 
 const app = express();
 passportConfig(); // 패스포트 설정
@@ -65,6 +66,7 @@ app.use('/publisher', publisherRouter);
 app.use('/book', bookRouter);
 app.use('/basket', basketRouter);
 app.use('/event', eventRouter);
+app.use('/admin', adminRouter);
 
 app.use((req, res, next) => {
   const error =  new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
