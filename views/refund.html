@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 {% block content %}
 <div class="grid-container">
+    <div class="grid-aside"></div>
     <div class="grid-content">
         <form id='form' action='/my_page/refund/post' method='post'>
             <input type="hidden" name="order_no" id="{{order_no}}" value="{{order_no}}">
