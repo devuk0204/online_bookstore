@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="grid-container">
+        <div class="cell-header">
+          <h1>{{title}}</h1>
+        </div>
+        <div class="cell-aside">
+            <h2>관리자 페이지</h2>
+            <a href="">FAQ & 공지사항 관리</a> <br><br>
+            <a href="">1:1문의 관리</a> <br><br>
+            <a href="">베스트셀러 관리</a> <br><br>
+            <a href="">수익 통계</a> <br><br>
+            <h3>이벤트 / 광고 관리</h3>
+          </div>
+          
+          <div class="cell-content">
+            <h2>이벤트 / 광고 관리</h2> <br>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>수혜여부</th>
+                </tr>
+                {% for par in participate %}
+                <a href="/admin/event/participants/{{reception_no}}/{{par.id}}">
+                    <tr>
+                        <td>{{par.id}}</td>
+                        <td>{{par.benefit_status}}</td>
+                    </tr>
+                </a>
+                {% endfor %}
+            </table>
+          </div>
+        </div>
+      </div>
+{% endblock %}

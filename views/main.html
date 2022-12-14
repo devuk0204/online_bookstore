@@ -1,13 +1,16 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    <div class="grid-container">
-      <div class="grid-aside">
-      </div>
-      <div class="grid-content">
-
-      </div>
-    </div>
+<div class="grid-container">
+  <div class="grid-content">
+    {% for best_seller in best_sellers_w %}
+    {% endfor %}
+    {% for best_seller in best_sellers_m %}
+    {% endfor %}
+    {% for event in events %}
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}
 
 {% block script %}
@@ -19,12 +22,5 @@
 </script>
 {% endfor %}
 <script>
-  const characterCheck = (obj) => {
-      let regExp = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\\(\=]/gi; 
-      if( regExp.test(obj.value) ){
-        alert("특수문자는 입력하실수 없습니다.");
-        obj.value = obj.value.substring( 0 , obj.value.length - 1 ); // 입력한 특수문자 한자리 지움
-        }
-      };
 </script>
 {% endblock %}

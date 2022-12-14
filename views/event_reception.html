@@ -2,7 +2,6 @@
 
 {% block content %}
 <div class="grid-container">
-    <div class="grid-aside"></div>
     <div class="cell-header">
         <h1>{{title}}</h1>
     </div>
@@ -17,14 +16,14 @@
 
     <div class="cell-content">
         <h2>이벤트 / 광고 신청</h2>
-        <form action="/publisher/acceptance/wait" method="post">
+        <form action="/admin/event_reception" method="post">
             <div style="float: left; width: 150px;">
                 <label for="event_type">이벤트 / 광고 유형 *</label>
             </div>
             <div style="float: none">
-                <select name="event_type">
-                    <option value="event">이벤트</option>
-                    <option value="commercial">광고</option>
+                <select name="commercial_event_status">
+                    <option value="1">이벤트</option>
+                    <option value="2">광고</option>
                 </select><br><br>
             </div>
             <div style="float: left; width: 150px;">
