@@ -107,7 +107,6 @@ router.get('/event', isLoggedIn, async(req, res, next) => {
         const name = req.user.name;
         try {
             const events = await Event_commercial.findAll({
-                attributes: [title, start_date, end_date],
                 where: {
                     publisher_name: name,
                 }
@@ -127,7 +126,6 @@ router.get('/event/tally/:reception_no', isLoggedIn, async(req, res, next) => {
     const name = req.user.name;
     try {
         const check = await Event_commercial.findOne({
-            attributes: [publisher_name],
             where: {
                 reception_no: reception_no
             }
@@ -153,7 +151,6 @@ router.get('/event/participants/:reception_no', isLoggedIn, async (req, res, nex
     const name = req.user.name;
     try {
         const check = await Event_commercial.findOne({
-            attributes: [reception_no, title, publisher_name],
             where: {
                 reception_no: reception_no
             }
