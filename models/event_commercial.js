@@ -81,6 +81,10 @@ module.exports = class Event_commercial extends Sequelize.Model {
             type: Sequelize.INTEGER,
             allowNull: true,
         },
+        benefit :{
+            type: Sequelize.INTEGER,
+            allowNull: true
+        },
         total_quantity: {
             type: Sequelize.INTEGER,
             allowNull: true,

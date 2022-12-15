@@ -1,6 +1,6 @@
 const express = require('express');
 const { isLoggedIn } = require('./middlewares');
-const { Book, Basket_item, Shopping_basket, Order, Card, Shipping_address, Order_item, User, Point_log } = require('../models');
+const { Book, Basket_item, Shopping_basket, Order, Card, Shipping_address, Order_item, User, Point_log, Event_commercial, Participate_user } = require('../models');
 const router = express.Router();
 
 router.get('/', isLoggedIn , async (req, res, next) => {
@@ -33,7 +33,7 @@ router.get('/', isLoggedIn , async (req, res, next) => {
 });
 
 router.post('/', isLoggedIn, async (req, res, next) => {
-    const { ISBN, quantity } = req.body;
+    const { ISBN, quantity, event } = req.body;
     const id = req.user.id;
     try {
         await Shopping_basket.create({
@@ -57,7 +57,8 @@ router.post('/', isLoggedIn, async (req, res, next) => {
             await Basket_item.create({
                 basket_no: basket.id,
                 ISBN: ISBN,
-                quantity: quantity
+                quantity: quantity,
+                event_yn: event,
             });
             return res.render('main');
         }
@@ -141,19 +142,60 @@ router.post('/order', isLoggedIn, async (req, res, next) => {
             });
             total_price += book.list_price * items[i].quantity;
             total_quantity += items[i].quantity;
-            await Order_item.create({
-                order_no: order.order_no,
-                ISBN: book.ISBN,
-                sell_price: book.list_price,
-                quantity: items[i].quantity,
-            });
-            await Book.update({
-                book_stock: book.book_stock - items[i].quantity
-            }, {
-                where: {
-                    ISBN: book.ISBN
+                await Order_item.create({
+                    order_no: order.order_no,
+                    ISBN: book.ISBN,
+                    sell_price: book.list_price,
+                    quantity: items[i].quantity,
+                });
+                await Book.update({
+                    book_stock: book.book_stock - items[i].quantity
+                }, {
+                    where: {
+                        ISBN: book.ISBN
+                    }
+                });
+                const event = await Event_commercial.findOne({ where: {ISBN: items[i].ISBN}});
+                if(event.benefit_apply == 1) {
+                    await Participate_user.create({
+                        participate_date: Date.now(),
+                        benefit_status: 'yet',
+                        personal_information: 'yes',
+                        id: id,
+                        reception_no: event.reception_no,
+                    });
+                } else {
+                    await Participate_user.create({
+                        participate_date: Date.now(),
+                        benefit_status: 'yes',
+                        personal_information: 'yes',
+                        id: id,
+                        reception_no: event.reception_no,
+                    });
+                    if(event.exhausted_quantity + 1 >= event.total_quantity) {
+                        await Event_commercial.update({
+                            exhausted_quantity: event.exhausted_quantity + 1,
+                            status: 0
+                        }, { where: {reception_no: event.reception_no}});
+                    } else {
+                        await Event_commercial.update({
+                            exhausted_quantity: event.exhausted_quantity + 1,
+                        }, { where: {reception_no: event.reception_no}});
+                    }
                 }
-            });
+                if(event.benefit_type == 1) {
+                    user = await User.findOne({ where: {id: id}})
+                    await User.update({
+                        point: user.point + event.benefit
+                    });
+                    await Point_log.create({
+                        description: '이벤트 참여',
+                        total_point: user.point + event.benefit,
+                        date: Date.now(),
+                        change_point: event.benefit,
+                        user_id: id
+                    });
+                }
         };
         let temp_point = (total_price - use_point) * 0.1
         if(use_point > 0) {

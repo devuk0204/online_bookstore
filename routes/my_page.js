@@ -8,7 +8,7 @@ const Shipping_address = require('../models/shipping_address');
 const Card = require('../models/card');
 const Order_item = require('../models/order_item');
 const Order  = require('../models/order');
-const { Book } = require('../models');
+const { Book, Participate_user } = require('../models');
 
 const router = express.Router();
 
@@ -242,6 +242,17 @@ router.post('/refund/post', isLoggedIn, async (req, res, next) => {
             quantity: 0
         }, { where: { order_no: order_no }});
         return res.send("<script>alert('환불이 신청되었습니다'); window.location.href='http://localhost:3000/my_page';</script>")
+    } catch(error) {
+        console.error(error);
+        next(error);
+    }
+});
+
+router.get('/event', isLoggedIn, async(req, res, next) => {
+    try {
+        const id = req.user.id;
+        const events = await Participate_user.findAll({ where: { id: id } });
+        res.render('participate_event', { title: '마이페이지', events: events });
     } catch(error) {
         console.error(error);
         next(error);

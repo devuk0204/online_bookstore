@@ -17,7 +17,7 @@
         <div class="cell-content">
             <h2>이벤트 / 광고 관리</h2>
             {% for event in events %}
-            <a href="/admin/event_select/{{event.title}}">
+            <a href="/admin/event/participants/{{event.reception_no}}">
                 {{event.title}}, {{event.start_date}},
                 {{event.end_date}}
                 {% if event.status == 1 %}

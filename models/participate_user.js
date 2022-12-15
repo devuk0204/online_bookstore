@@ -3,13 +3,18 @@ const Sequelize = require('sequelize');
 module.exports = class Participate_user extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
+        participate_no: {
+          type: Sequelize.INTEGER,
+          primaryKey: true,
+          autoIncrement: true,
+        },
         id: {
             type: Sequelize.STRING(15),
-            primaryKey: true,
+            allowNull: false,
         },
         reception_no: {
             type: Sequelize.INTEGER,
-            primaryKey: true,
+            allowNull: false,
         },
         participate_date: {
             type: Sequelize.DATEONLY,

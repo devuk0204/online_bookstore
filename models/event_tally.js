@@ -27,7 +27,7 @@ module.exports = class Event_tally extends Sequelize.Model {
       beneficiary: {
         type: Sequelize.INTEGER,
         allowNull: false,
-      }
+      },
     }, {
       sequelize,
       timestamps: false,

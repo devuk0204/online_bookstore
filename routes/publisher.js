@@ -161,7 +161,7 @@ router.get('/event/participants/:reception_no', isLoggedIn, async (req, res, nex
                     reception_no: reception_no
                 }
             });
-            res.render('event_user_list', { title: '출판사 페이지', participate_users: participants });
+            res.render('event_user_list_p', { title: '출판사 페이지', participants: participants });
         } else {
             res.send("<script>alert('해당 도서를 출판한 출판사만 이용 가능합니다.'); history.back();</script>");
         }

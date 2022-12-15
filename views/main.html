@@ -2,12 +2,12 @@
 
 {% block content %}
 <div class="grid-container">
+  <div class="grid-aside"></div>
   <div class="grid-content">
-    {% for best_seller in best_sellers_w %}
-    {% endfor %}
-    {% for best_seller in best_sellers_m %}
-    {% endfor %}
     {% for event in events %}
+    <a href="/event/{{event.reception_no}}">
+      <h3>{{event.title}}</h3>
+    </a>
     {% endfor %}
   </div>
 </div>

@@ -15,9 +15,16 @@
             <h3>{{event.title}}</h3>
             <img src="{{event.description_img}}" alt="이벤트 설명 이미지">
             <p>{{event.content}}</p>
-
-            
-           <a href=""></a>
+            {% if event.commercial_event_status == 1 %}
+            {% if event.benefit_condition_book == 1 %}
+            <a href="/book/page/{{event.ISBN}}/1">도서 구매하러 가기</a>
+            {% else %}
+            <form action="/event" method="post">
+              <input type="text" name="reception_no" value="{{event.reception_no}}" hidden>
+              <button type="submit">이벤트 참여하기</button>
+            </form>
+            {% endif %}
+            {% endif %}
           </div>
         </div>
       </div>

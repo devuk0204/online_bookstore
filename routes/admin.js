@@ -92,7 +92,6 @@ router.get('/event/participants/:reception_no', isLoggedIn, async (req, res, nex
     const reception_no = req.params.reception_no;
     try {
         const check = await Event_commercial.findOne({
-            attributes: [reception_no, title, publisher_name],
             where: {
                 reception_no: reception_no
             }
@@ -102,7 +101,7 @@ router.get('/event/participants/:reception_no', isLoggedIn, async (req, res, nex
                     reception_no: reception_no
                 }
             });
-            res.render('event_participants', { title: '관리자 페이지', participate_users: participants });
+            res.render('event_user_list', { title: '관리자 페이지', participate_users: participants });
     } catch(error) {
         console.error(error);
         next(error);
@@ -159,7 +158,7 @@ router.get('/event_reception', isLoggedIn, async(req, res, next) => {
 
 router.post('/event_reception', isLoggedIn, async(req,res, next) => {
     const { commercial_event_status, post_type, title, content, banner_img, description_img, popup_img, start_date, end_date, drawing_date,
-    ISBN, benefit_condition_book, benefit_apply_yn, answer_yn, benefit_type, total_quantity, exhausted_quantity, event_question,
+    ISBN, benefit_condition_book, benefit_apply_yn, answer_yn, benefit_type, benefit, total_quantity, exhausted_quantity, event_question,
     event_question_answer, policy_no } = req.body;
 
     const id = req.user.id;
@@ -180,11 +179,12 @@ router.post('/event_reception', isLoggedIn, async(req,res, next) => {
             drawing_date: drawing_date,
             ISBN: ISBN,
             views: 0,
-            status: 0,
+            status: 1,
             benefit_condition_book: benefit_condition_book,
             benefit_apply_yn: benefit_apply_yn,
             answer_yn: answer_yn,
             benefit_type: benefit_type,
+            benefit: benefit,
             total_quantity: total_quantity,
             exhausted_quantity: exhausted_quantity,
             event_question: event_question,
