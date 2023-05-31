@@ -46,10 +46,7 @@ router.get('/page/:ISBN/:event', async (req, res, next) => {
                 ISBN: ISBN
             }
         });
-        return res.render('book', {
-            book: book,
-            event: event
-        });
+        return res.render('book', { title: '도서상세정보',book: book, event: event});
     } catch(error) {
         console.error(error);
         next(error);

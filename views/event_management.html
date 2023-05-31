@@ -16,7 +16,7 @@
 
   <div class="cell-content">
     <h2>이벤트 / 광고 관리</h2>
-    {% for event in event_commercials %}
+    {% for event in events %}
     <a href="admin/management/{{event.reception_no}}">{{event.title}}</a>
     <br>
     {% endfor %}

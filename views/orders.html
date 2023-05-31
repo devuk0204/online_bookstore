@@ -11,6 +11,8 @@
         <div class="order-no">{{order.order_no}}</div><br>
         <label class="order-date">주문일자</label>
         <div class="order-date">{{order.createdAt}}</div><br>
+        <label for="order-status">주문상태</label>
+        <div class="order-status">{{order.order_status}}</div>
       </div>
       {% for inf in orders %}
       <div class="order">
@@ -19,6 +21,9 @@
         <div class="order-createdAt">{{inf.ISBN}}</div><br>
         <label for="order-quantity">수량</label>
         <div class="order-quantity">{{inf.quantity}}권</div>
+        {% if inf.event_yn == 1 %}
+        <h3>이벤트 참가</h3>
+        {% endif %}
         <!-- <label for="order-status">주문 상태</label>
       <div class="order-status">{{order.order_status}}</div> -->
         <br><br>

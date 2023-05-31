@@ -87,7 +87,7 @@
                 <label for="ISBN">대상 도서</label>
             </div>
             <div style="float: none">
-                <input name="ISBN" placeholder="대상 도서"><br><br>
+                <input name="ISBN" placeholder="대상 도서" maxlength="13"><br><br>
             </div>
             <div style="float: left; width: 150px;">
                 <label for="benefit_condition_book">혜택 조건(도서구매)</label>
@@ -125,6 +125,12 @@
                     <option value="2">사은품</option>
                     <option value="3">기타</option>
                 </select><br><br>
+            </div>
+            <div style="float: left; width: 150px;">
+                <label for="total_quantity">혜택</label>
+            </div>
+            <div style="float: none">
+                <input type="number" name="benefit" placeholder="포인트"><br><br>
             </div>
             <div style="float: left; width: 150px;">
                 <label for="total_quantity">총 수량</label>

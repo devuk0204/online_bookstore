@@ -22,14 +22,13 @@
     <p>응모 내용</p>
     <h3>{{participate.user_answer}}</h3>
     <br><br><br><br><br>
-    {% if user.id_type == 2 %}
-    <form action="/admin/event/participants" method="post">
+    {% if user.id_type == 3 %}
+    <form action="publisher/event/participants" method="post">
       <input type="text" name="reception_no" id="reception_no" value="{{participate.reception_no}}" hidden>
       <input type="text" name="id" id="id" value="{{participate.id}}" hidden>
       <button type="submit">선정하기</button>
     </form>
     {% endif %}
-    
   </div>
 </div>
 {% endblock %}
